@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Fairer Rate Order — Grand Lakes MUD 2</title>
+<meta name="description" content="What the Aug 3, 2026 rate proposal means for your water bill — and a counter-proposal that raises the same revenue with an honest shape. Built entirely from the district's own numbers.">
+<style>
+  :root { --navy:#17304F; --paper:#FAFAF8; --gray:#5A626E; --green:#3E7A3E; --red:#B01818; --orange:#D9932C; --blue:#2B6CA6; --gold:#F0C454; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:"Segoe UI", system-ui, -apple-system, sans-serif; background:var(--paper); color:var(--navy); line-height:1.55; }
+  .top { background:var(--navy); color:#fff; padding:3.2rem 1rem 2.6rem; text-align:center; }
+  .top .kicker { letter-spacing:.12em; font-size:.85rem; color:#B8C6DA; font-weight:600; }
+  .top h1 { font-size:clamp(1.7rem, 4.6vw, 3rem); margin:.5rem 0 .7rem; }
+  .top p { color:#DEE4EC; max-width:44rem; margin:0 auto; }
+  .wrap { max-width:60rem; margin:0 auto; padding:0 1rem; }
+  section { padding:2.6rem 0; }
+  h2 { font-size:clamp(1.3rem,3vw,1.9rem); margin-bottom:.9rem; }
+  video { width:100%; border-radius:10px; box-shadow:0 8px 30px rgba(23,48,79,.25); background:#000; }
+  .calc { background:#fff; border:1px solid #E3E5E8; border-radius:12px; padding:1.5rem; }
+  .calc label { font-weight:600; }
+  .calc input { font-size:1.4rem; width:9rem; padding:.4rem .6rem; border:2px solid var(--navy); border-radius:8px; margin:0 .5rem; }
+  .hint { color:var(--gray); font-size:.9rem; margin-top:.4rem; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(12.5rem,1fr)); gap:.9rem; margin-top:1.3rem; }
+  .card { border-radius:10px; padding:1rem; border:2px solid #E3E5E8; background:#fff; }
+  .card .name { font-size:.85rem; font-weight:700; letter-spacing:.05em; color:var(--gray); }
+  .card .amt { font-size:1.9rem; font-weight:700; margin:.2rem 0; }
+  .card .pct { font-weight:600; font-size:.95rem; }
+  .card.cur { border-color:var(--gray); }
+  .card.s1 { border-color:var(--orange); } .card.s1 .amt{color:var(--orange);}
+  .card.s2 { border-color:var(--red); } .card.s2 .amt{color:var(--red);}
+  .card.s3 { border-color:var(--green); background:#F4F9F4; } .card.s3 .amt{color:var(--green);}
+  .fine { color:var(--gray); font-size:.8rem; margin-top:1rem; }
+  figure { margin:2rem 0; }
+  figure img { width:100%; border-radius:8px; border:1px solid #E3E5E8; background:#fff; }
+  figcaption { color:var(--gray); font-size:.9rem; margin-top:.45rem; }
+  details { background:#fff; border:1px solid #E3E5E8; border-radius:10px; padding:1rem 1.2rem; margin:.6rem 0; }
+  summary { font-weight:700; cursor:pointer; }
+  details p { margin:.6rem 0; color:#33404F; }
+  .btns { display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1rem; }
+  .btn { display:inline-block; background:var(--navy); color:#fff; text-decoration:none; padding:.75rem 1.2rem; border-radius:8px; font-weight:600; }
+  .btn.alt { background:#fff; color:var(--navy); border:2px solid var(--navy); }
+  footer { background:var(--navy); color:#B8C6DA; text-align:center; padding:2rem 1rem; font-size:.9rem; }
+  footer .motto { color:#fff; font-weight:700; font-size:1.05rem; margin-bottom:.4rem; }
+  .note { background:#FFF7E8; border:1px solid #EAD7A8; border-radius:10px; padding:1rem 1.2rem; margin-top:1.2rem; font-size:.95rem; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="kicker">GRAND LAKES MUD 2 · KATY, TEXAS · AUGUST 2026</div>
+  <h1>Your water bill is about to change.</h1>
+  <p>Two rate scenarios were presented at the August 3, 2026 board meeting. A neighbor on Rose Grove Lane checked the math — using the district's own numbers — and built a fairer alternative that raises the <strong>same revenue</strong>.</p>
+</div>
+
+<div class="wrap">
+
+<section>
+  <video controls preload="metadata" src="assets/video.mp4"></video>
+  <p class="hint">2-minute explainer. Sound on — or just read the captions.</p>
+</section>
+
+<section id="calc">
+  <h2>What happens to <em>your</em> bill?</h2>
+  <div class="calc">
+    <label for="gal">Your monthly water use:</label>
+    <input id="gal" type="number" min="0" max="200" step="1" value="10"> <strong>thousand gallons</strong>
+    <div class="hint">It's printed on your bill (usage in gallons — 10,000 gallons = enter 10). Not sure? The district median is about 12.</div>
+    <div class="cards">
+      <div class="card cur"><div class="name">TODAY</div><div class="amt" id="cCur">—</div><div class="pct">current rates</div></div>
+      <div class="card s1"><div class="name">SCENARIO 1</div><div class="amt" id="cS1">—</div><div class="pct" id="pS1">—</div></div>
+      <div class="card s2"><div class="name">SCENARIO 2</div><div class="amt" id="cS2">—</div><div class="pct" id="pS2">—</div></div>
+      <div class="card s3"><div class="name">COUNTER-PROPOSAL S3</div><div class="amt" id="cS3">—</div><div class="pct" id="pS3">—</div></div>
+    </div>
+    <p class="fine">All figures are the full monthly water + sewer bill <strong>including</strong> the NFBWA pass-through fee ($4.90 per 1,000 gallons) that every customer pays — the real check you write. Scenario 2 includes its $100/month Capital Project Base Fee. Computed from the rate tables presented Aug 3, 2026 (handout pp. 4 &amp; 6; the unpublished S1 40–50k water tier is assumed at $4.50) and the counter-proposal in the brief below. S3 also includes a 4.5¢ M&amp;O tax component (~$28/month on the average-value home, scaled to home value) that is not part of the water bill shown here.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The four facts behind the video</h2>
+  <figure><img src="assets/deck-img-00.png" alt="District usage distribution: 679 homes by monthly water use"><figcaption><strong>Who lives here.</strong> 679 homes, mostly modest water users: 27% already conserve (under 10,000 gal/month); only 3% use more than 30,000. Every question about "fairness" is a question about which of these bars carries the load.</figcaption></figure>
+  <figure><img src="assets/deck-img-01.png" alt="Total bill increase by usage under Scenario 1 and 2"><figcaption><strong>What the proposal does.</strong> The harder a family conserves, the harder it's hit: a 4,000-gallon household faces up to +226% (Scenario 2) while the heaviest users get the smallest increases. That is the arithmetic signature of flat fees.</figcaption></figure>
+  <figure><img src="assets/deck-img-02.png" alt="Marginal price vs true cost per 1,000 gallons"><figcaption><strong>Why.</strong> A thousand gallons truly costs $6.95 to deliver ($2.05 district + $4.90 NFBWA). The proposal prices extra water below that in the tiers where nearly all usage lives — waste subsidized by everyone's fixed fees.</figcaption></figure>
+  <figure><img src="assets/deck-img-03.png" alt="Composition of the proposed $55 sewer charge"><figcaption><strong>The label game.</strong> A third of the proposed $55 "sewer" charge is actually the garbage bill ($36.51), by the presentation's own note. A cost hidden in the wrong line can never be questioned by the people paying it.</figcaption></figure>
+  <figure><img src="assets/deck-img-04.png" alt="Scenario 1 vs counter-proposal S3 at equal revenue"><figcaption><strong>The alternative.</strong> Counter-proposal S3 raises the same total revenue (within 0.2%): conserving homes nearly untouched, heavy users pay true cost. Same money for the district — opposite message to the community.</figcaption></figure>
+</section>
+
+<section>
+  <h2>Common questions</h2>
+  <details><summary>Why is the district raising rates at all?</summary>
+    <p>The district's stated case: the May 2026 bond election failed, sales-tax (SPA) revenue collapsed, and on current rates its reserves go deeply negative over the next decade. <strong>Nobody here disputes that the district needs the money it says it needs</strong> — the brief verifies the $950,923 revenue target against the FY2027 budget line by line. The disagreement is about the <em>shape</em>: who carries it, and whether prices reflect measured costs.</p></details>
+  <details><summary>Am I in Grand Lakes MUD 2?</summary>
+    <p>Look at the top of your water bill. If it says <strong>GRAND LAKES MUD 2</strong>, this is your district (neighbors on adjacent streets may be in MUD 1, MUD 4, or the WCID — their rates are set separately).</p></details>
+  <details><summary>What are Scenario 1 and Scenario 2?</summary>
+    <p><strong>Scenario 1:</strong> water base rises to $30 (includes 5,000 gal) with new tiers, and the flat sewer charge rises from $20 to $55–75 depending on usage. <strong>Scenario 2:</strong> a steeper water structure, volumetric sewer, plus a flat <strong>$100-per-connection monthly "Capital Project Base Fee"</strong> — identical for every home regardless of size, value, or usage. The board appeared to lean toward Scenario 1, with a second phase suggested for 2028.</p></details>
+  <details><summary>What is the counter-proposal (S3)?</summary>
+    <p>A structure built from measured costs that raises the <strong>same total revenue within 0.2%</strong>: a low $15 water base, marginal water priced at or above its true $6.95 cost, sewer near its actual $47 connection cost, garbage on its own honest line, commercial rates 25% above Scenario 1, and a modest 4.5¢ tax component — the one lever the presented study never modeled. Every formula is open in the workbook below.</p></details>
+  <details><summary>What can I actually do?</summary>
+    <p>Three things. <strong>Read the brief</strong> (below) so you know the numbers. <strong>Check your own bill</strong> with the calculator above. And <strong>come to the next board meeting</strong> — the board accepts resident comments, and rate design decisions are made there. The ask is modest: publish the cost-of-service measurement and show the community both levers — fees and taxes — side by side, before anything is adopted.</p></details>
+  <details><summary>Who made this?</summary>
+    <p>Tomas Alvarez — a resident and ratepayer on Rose Grove Lane since 2021. Everything here comes from public documents: five years of his own bills, the district's published rate order, the FY2027 proposed budget, and the handouts from the August 3 board meeting. And yes — under his own counter-proposal, his bill goes up the most on his street, because the audit found his own sprinkler system was the biggest waster. He proposed it anyway.</p></details>
+  <div class="note"><strong>A note on tone.</strong> This is not an accusation. The district's billing arithmetic is clean — 60 bills audited, zero errors. The critique is of <em>the proposal as presented on August 3, 2026</em>, and it comes with a constructive alternative at the same bottom line. If the flat-fee design still wins an open debate, so be it — at least the community will have chosen it.</div>
+</section>
+
+<section>
+  <h2>Read the numbers yourself</h2>
+  <div class="btns">
+    <a class="btn" href="assets/A-Fairer-Rate-Order-GLMUD2.pdf" download>Download the full brief (PDF, 15 pages)</a>
+    <a class="btn alt" href="assets/MUD_Water_Analysis.xlsx" download>Download the open workbook (Excel)</a>
+  </div>
+  <p class="hint">The workbook contains every formula: the 60-bill audit, the rate models, the scenario impacts, and the editable S3 counter-proposal calibrated on the district's own 679-meter distribution.</p>
+</section>
+
+</div>
+
+<footer>
+  <div class="motto">Measure first. Then manage.</div>
+  <div>Prepared by Tomas Alvarez · resident &amp; ratepayer, Rose Grove Lane · talvarez@txwos.com</div>
+  <div style="margin-top:.4rem">Built entirely from the district's own numbers. This is a resident's independent analysis, not a district publication.</div>
+</footer>
+
+<script>
+function tier(g, brackets) { // brackets: [limit, rate] applied to usage above prev limit
+  let cost=0, prev=0;
+  for (const [lim, rate] of brackets) {
+    if (g > prev) cost += (Math.min(g, lim) - prev) * rate;
+    prev = lim;
+  }
+  return cost;
+}
+const NFBWA = 4.90;
+function bills(g) {
+  // TODAY: water $25 min incl 10k; +$1/k 10-20; +$2/k 20-50; +$3/k >50; sewer $20 flat
+  const cur = 25 + tier(g, [[10,0],[20,1],[50,2],[1e9,3]]) + 20 + NFBWA*g;
+  // S1: water $30 incl 5k; 1.5/2/2.5/3/3.5/4/4.5 in 5k steps to 40k; 40-50k assumed 4.5; >50k 5
+  const s1w = 30 + tier(g, [[5,0],[10,1.5],[15,2],[20,2.5],[25,3],[30,3.5],[35,4],[40,4.5],[50,4.5],[1e9,5]]);
+  const s1s = g<=20?55 : g<=30?60 : g<=40?65 : g<=50?70 : 75;
+  const s1 = s1w + s1s + NFBWA*g;
+  // S2: water $30 incl 2k; 3/4/4.5/5.5/6.5; >27k 7.5 · sewer $55 incl 5k + 1.5/2/2.5/3/3.5 · +$100 fee
+  const s2w = 30 + tier(g, [[2,0],[5,3],[9,4],[14,4.5],[20,5.5],[27,6.5],[1e9,7.5]]);
+  const s2s = 55 + tier(g, [[5,0],[8,1.5],[15,2],[20,2.5],[25,3],[1e9,3.5]]);
+  const s2 = s2w + s2s + 100 + NFBWA*g;
+  // S3: water $15 incl 3k; 0.85 (3-10), 1.70 (10-15), 3 (15-20), 6 (20-30), 8 (>30) · sewer $30 + 1.25/k on 3-15k cap $45
+  const s3w = 15 + tier(g, [[3,0],[10,0.85],[15,1.7],[20,3],[30,6],[1e9,8]]);
+  const s3s = Math.min(45, 30 + tier(g, [[3,0],[15,1.25]]));
+  const s3 = s3w + s3s + NFBWA*g;
+  return {cur, s1, s2, s3};
+}
+const fmt = x => "$" + x.toFixed(2);
+const pct = (x, c) => { const p = Math.round((x-c)/c*100); return (p>=0?"+":"") + p + "% vs today"; };
+function upd() {
+  const g = Math.max(0, parseFloat(document.getElementById('gal').value) || 0);
+  const b = bills(g);
+  cCur.textContent = fmt(b.cur);
+  cS1.textContent = fmt(b.s1); pS1.textContent = pct(b.s1, b.cur);
+  cS2.textContent = fmt(b.s2); pS2.textContent = pct(b.s2, b.cur);
+  cS3.textContent = fmt(b.s3); pS3.textContent = pct(b.s3, b.cur);
+}
+document.getElementById('gal').addEventListener('input', upd); upd();
+</script>
+</body>
+</html>
