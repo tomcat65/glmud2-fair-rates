@@ -6,43 +6,106 @@
 <title>A Fairer Rate Order — Grand Lakes MUD 2</title>
 <meta name="description" content="What the Aug 3, 2026 rate proposal means for your water bill — and a counter-proposal that raises the same revenue with an honest shape. Built entirely from the district's own numbers.">
 <style>
-  :root { --navy:#17304F; --paper:#FAFAF8; --gray:#5A626E; --green:#3E7A3E; --red:#B01818; --orange:#D9932C; --blue:#2B6CA6; --gold:#F0C454; }
+  :root { --navy:#17304F; --paper:#FAFAF8; --ink2:#5A626E; --line:#E3E5E8;
+    /* scenario identity (validated) */ --cToday:#3A66A8; --cS1:#D9932C; --cS2:#B3261E; --cS3:#1F8A63;
+    /* bill segments (validated, stack order water→nfbwa→sewer→fee) */ --segW:#2B6CA6; --segN:#C79A3D; --segS:#9C46B8; --segF:#B3261E; }
   * { box-sizing:border-box; margin:0; }
   body { font-family:"Segoe UI", system-ui, -apple-system, sans-serif; background:var(--paper); color:var(--navy); line-height:1.55; }
-  .top { background:var(--navy); color:#fff; padding:3.2rem 1rem 2.6rem; text-align:center; }
+  .top { background:var(--navy); color:#fff; padding:3rem 1rem 2.4rem; text-align:center; }
   .top .kicker { letter-spacing:.12em; font-size:.85rem; color:#B8C6DA; font-weight:600; }
-  .top h1 { font-size:clamp(1.7rem, 4.6vw, 3rem); margin:.5rem 0 .7rem; }
+  .top h1 { font-size:clamp(1.7rem,4.6vw,3rem); margin:.5rem 0 .7rem; }
   .top p { color:#DEE4EC; max-width:44rem; margin:0 auto; }
-  .wrap { max-width:60rem; margin:0 auto; padding:0 1rem; }
-  section { padding:2.6rem 0; }
-  h2 { font-size:clamp(1.3rem,3vw,1.9rem); margin-bottom:.9rem; }
+  .wrap { max-width:62rem; margin:0 auto; padding:0 1rem; }
+  section { padding:2.4rem 0 1.6rem; }
+  h2 { font-size:clamp(1.35rem,3vw,1.95rem); margin-bottom:.35rem; }
+  .sub { color:var(--ink2); margin-bottom:1.1rem; max-width:46rem; }
   video { width:100%; border-radius:10px; box-shadow:0 8px 30px rgba(23,48,79,.25); background:#000; }
-  .calc { background:#fff; border:1px solid #E3E5E8; border-radius:12px; padding:1.5rem; }
-  .calc label { font-weight:600; }
-  .calc input { font-size:1.4rem; width:9rem; padding:.4rem .6rem; border:2px solid var(--navy); border-radius:8px; margin:0 .5rem; }
-  .hint { color:var(--gray); font-size:.9rem; margin-top:.4rem; }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(12.5rem,1fr)); gap:.9rem; margin-top:1.3rem; }
-  .card { border-radius:10px; padding:1rem; border:2px solid #E3E5E8; background:#fff; }
-  .card .name { font-size:.85rem; font-weight:700; letter-spacing:.05em; color:var(--gray); }
-  .card .amt { font-size:1.9rem; font-weight:700; margin:.2rem 0; }
+  .panel { background:#fff; border:1px solid var(--line); border-radius:12px; padding:1.4rem; }
+  .hint { color:var(--ink2); font-size:.9rem; margin-top:.5rem; }
+  .fine { color:var(--ink2); font-size:.8rem; margin-top:1rem; }
+  input[type=number] { font-size:1.4rem; width:8.5rem; padding:.35rem .6rem; border:2px solid var(--navy); border-radius:8px; margin:0 .45rem; }
+  input[type=range] { width:100%; accent-color:var(--navy); }
+  .say { background:#F2F6FB; border-left:5px solid var(--cToday); border-radius:0 8px 8px 0; padding: .8rem 1rem; margin-top:1.1rem; font-size:1.05rem; }
+  /* ----- bill bars ----- */
+  .brow { display:grid; grid-template-columns:7.2rem 1fr 6.2rem; gap:.6rem; align-items:center; margin:.8rem 0; }
+  .brow .lbl { font-weight:700; font-size:.9rem; text-align:right; }
+  .track { position:relative; height:2.4rem; }
+  .bar { position:absolute; inset:0 auto 0 0; display:flex; gap:2px; width:0%; transition:width .7s cubic-bezier(.2,.7,.3,1); }
+  .seg { height:100%; border-radius:3px; position:relative; min-width:0; }
+  .seg.first { border-radius:6px 3px 3px 6px; } .seg.last { border-radius:3px 6px 6px 3px; }
+  .hatch { position:absolute; inset:0; border-radius:inherit; background:repeating-linear-gradient(45deg, rgba(255,255,255,.5) 0 4px, transparent 4px 9px); }
+  .tot { font-size:1.15rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .legend { display:flex; flex-wrap:wrap; gap:1rem .9rem; margin-top:1rem; font-size:.85rem; color:var(--ink2); }
+  .legend span { display:inline-flex; align-items:center; gap:.35rem; }
+  .sw { width:.85rem; height:.85rem; border-radius:3px; display:inline-block; position:relative; }
+  /* ----- grouped % chart ----- */
+  .gwrap { position:relative; }
+  .gchart { display:grid; grid-template-columns:repeat(7,1fr); gap:.6rem; align-items:end; height:15.5rem; margin-top:2.2rem; }
+  .ggroup { display:flex; gap:3px; align-items:end; justify-content:center; height:100%; position:relative; }
+  .gbar { width:26%; max-width:2rem; border-radius:4px 4px 0 0; height:0%; transition:height .8s cubic-bezier(.2,.7,.3,1); position:relative; }
+  .gbar i { position:absolute; top:-1.35rem; left:50%; transform:translateX(-50%); font-style:normal; font-size:.72rem; font-weight:700; color:var(--navy); white-space:nowrap; }
+  .gx { display:grid; grid-template-columns:repeat(7,1fr); gap:.6rem; margin-top:.4rem; text-align:center; font-size:.8rem; color:var(--ink2); }
+  .you { position:absolute; top:-1.6rem; font-weight:800; font-size:.8rem; color:var(--navy); transform:translateX(-50%); transition:left .5s; text-align:center; line-height:1.1; }
+  .you::after { content:"▼"; display:block; }
+  /* ----- number line ----- */
+  .nline { position:relative; height:7.5rem; margin:2.4rem .4rem 0; }
+  .nl-axis { position:absolute; left:0; right:0; top:4.2rem; height:8px; background:linear-gradient(90deg,#F6E3E1 0 32%, #EAF3EE 32% 100%); border-radius:4px; }
+  .nl-true { position:absolute; top:2.5rem; height:4.4rem; width:3px; background:var(--cS2); }
+  .nl-true b { position:absolute; top:-1.9rem; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:.8rem; color:var(--cS2); }
+  .nl-dot { position:absolute; top:4.05rem; width:17px; height:17px; border-radius:50%; border:2.5px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); transform:translateX(-50%); transition:left .5s; }
+  .nl-dot b { position:absolute; top:1.3rem; left:50%; transform:translateX(-50%); font-size:.78rem; white-space:nowrap; font-weight:700; }
+  .nl-end { position:absolute; top:5.6rem; font-size:.75rem; color:var(--ink2); }
+  /* ----- costume bar ----- */
+  .cost-row { display:flex; gap:2px; height:3rem; margin-top:2.2rem; position:relative; border-radius:8px; }
+  .cost-seg { position:relative; border-radius:6px; transition:flex-grow .8s; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:.95rem; }
+  .cost-mark { position:absolute; top:-1.9rem; bottom:-1.4rem; width:3px; background:var(--cS2); }
+  .cost-mark b { position:absolute; top:-.2rem; left:.5rem; font-size:.8rem; color:var(--cS2); white-space:nowrap; }
+  /* ----- levers ----- */
+  .levers { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.2rem; }
+  @media (max-width:44rem){ .levers { grid-template-columns:1fr; } }
+  .lever { border:2px solid var(--line); border-radius:12px; padding:1.1rem; text-align:center; }
+  .lever h3 { font-size:1.02rem; margin-bottom:.2rem; }
+  .lever .desc { font-size:.85rem; color:var(--ink2); min-height:2.4em; }
+  .lever .big { font-size:2.1rem; font-weight:800; margin:.4rem 0 .1rem; font-variant-numeric:tabular-nums; }
+  .lever.tax { border-color:var(--cToday); } .lever.tax .big { color:var(--cToday); }
+  .lever.fee { border-color:var(--cS2); } .lever.fee .big { color:var(--cS2); }
+  .houses { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; margin-top:1.4rem; }
+  .hcard { text-align:center; }
+  .hcard svg { width:100%; max-width:7rem; }
+  .pair { display:flex; justify-content:center; gap:6px; align-items:end; height:5.2rem; margin-top:.3rem; }
+  .pbar { width:1.6rem; border-radius:4px 4px 0 0; height:0%; transition:height .7s; position:relative; }
+  .pbar i { position:absolute; top:-1.25rem; left:50%; transform:translateX(-50%); font-style:normal; font-size:.72rem; font-weight:700; white-space:nowrap; }
+  .hname { font-size:.82rem; color:var(--ink2); margin-top:.3rem; }
+  .toggle { display:inline-flex; border:2px solid var(--navy); border-radius:9px; overflow:hidden; margin-top:.4rem; }
+  .toggle button { border:0; background:#fff; color:var(--navy); font-weight:700; padding:.5rem .9rem; cursor:pointer; font-size:.88rem; }
+  .toggle button.on { background:var(--navy); color:#fff; }
+  .cross { margin-top:1rem; background:#FFF7E8; border:1px solid #EAD7A8; border-radius:10px; padding:.8rem 1rem; font-size:.95rem; }
+  /* ----- both channels ----- */
+  .chan { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; align-items:end; height:16rem; margin-top:2.4rem; }
+  .ccol { display:flex; flex-direction:column-reverse; align-items:center; height:100%; position:relative; }
+  .cstack { width:64%; max-width:5rem; display:flex; flex-direction:column-reverse; gap:2px; height:0%; transition:height .9s cubic-bezier(.2,.7,.3,1); }
+  .cbill { border-radius:4px; } .ctax { border-radius:6px 6px 4px 4px; background:var(--navy); position:relative; }
+  .ctax .hatch { border-radius:inherit; }
+  .ctot { position:absolute; top:-1.6rem; left:50%; transform:translateX(-50%); font-weight:800; font-size:.95rem; }
+  .cx { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; text-align:center; font-size:.85rem; color:var(--ink2); margin-top:.5rem; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(12.5rem,1fr)); gap:.9rem; margin-top:1.2rem; }
+  .card { border-radius:10px; padding:1rem; border:2px solid var(--line); background:#fff; }
+  .card .name { font-size:.85rem; font-weight:700; letter-spacing:.05em; color:var(--ink2); }
+  .card .amt { font-size:1.9rem; font-weight:700; margin:.2rem 0; font-variant-numeric:tabular-nums; }
   .card .pct { font-weight:600; font-size:.95rem; }
-  .card.cur { border-color:var(--gray); }
-  .card.s1 { border-color:var(--orange); } .card.s1 .amt{color:var(--orange);}
-  .card.s2 { border-color:var(--red); } .card.s2 .amt{color:var(--red);}
-  .card.s3 { border-color:var(--green); background:#F4F9F4; } .card.s3 .amt{color:var(--green);}
-  .fine { color:var(--gray); font-size:.8rem; margin-top:1rem; }
-  figure { margin:2rem 0; }
-  figure img { width:100%; border-radius:8px; border:1px solid #E3E5E8; background:#fff; }
-  figcaption { color:var(--gray); font-size:.9rem; margin-top:.45rem; }
-  details { background:#fff; border:1px solid #E3E5E8; border-radius:10px; padding:1rem 1.2rem; margin:.6rem 0; }
+  details { background:#fff; border:1px solid var(--line); border-radius:10px; padding:1rem 1.2rem; margin:.6rem 0; }
   summary { font-weight:700; cursor:pointer; }
   details p { margin:.6rem 0; color:#33404F; }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin-top:.6rem; }
+  th,td { border:1px solid var(--line); padding:.4rem .6rem; text-align:right; font-variant-numeric:tabular-nums; }
+  th:first-child, td:first-child { text-align:left; }
   .btns { display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1rem; }
   .btn { display:inline-block; background:var(--navy); color:#fff; text-decoration:none; padding:.75rem 1.2rem; border-radius:8px; font-weight:600; }
   .btn.alt { background:#fff; color:var(--navy); border:2px solid var(--navy); }
-  footer { background:var(--navy); color:#B8C6DA; text-align:center; padding:2rem 1rem; font-size:.9rem; }
+  footer { background:var(--navy); color:#B8C6DA; text-align:center; padding:2rem 1rem; font-size:.9rem; margin-top:2rem; }
   footer .motto { color:#fff; font-weight:700; font-size:1.05rem; margin-bottom:.4rem; }
   .note { background:#FFF7E8; border:1px solid #EAD7A8; border-radius:10px; padding:1rem 1.2rem; margin-top:1.2rem; font-size:.95rem; }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
 </style>
 </head>
 <body>
@@ -60,31 +123,134 @@
   <p class="hint">2-minute explainer. Sound on — or just read the captions.</p>
 </section>
 
+<!-- 1 · YOUR BILL, COMPARED -->
 <section id="calc">
-  <h2>What happens to <em>your</em> bill?</h2>
-  <div class="calc">
-    <label for="gal">Your monthly water use:</label>
-    <input id="gal" type="number" min="0" max="200" step="1" value="10"> <strong>thousand gallons</strong>
-    <div class="hint">It's printed on your bill (usage in gallons — 10,000 gallons = enter 10). Not sure? The district median is about 12.</div>
-    <div class="cards">
-      <div class="card cur"><div class="name">TODAY</div><div class="amt" id="cCur">—</div><div class="pct">current rates</div></div>
-      <div class="card s1"><div class="name">SCENARIO 1</div><div class="amt" id="cS1">—</div><div class="pct" id="pS1">—</div></div>
-      <div class="card s2"><div class="name">SCENARIO 2</div><div class="amt" id="cS2">—</div><div class="pct" id="pS2">—</div></div>
-      <div class="card s3"><div class="name">COUNTER-PROPOSAL S3</div><div class="amt" id="cS3">—</div><div class="pct" id="pS3">—</div></div>
+  <h2>Your real bill, under each plan</h2>
+  <p class="sub">Type the gallons from your bill. Every bar is the <strong>whole check you'd write</strong> — water, sewer, fees, and the NFBWA water-authority charge everyone pays.</p>
+  <div class="panel">
+    <label for="gal"><strong>Your monthly water use:</strong></label>
+    <input id="gal" type="number" min="0" max="120" step="1" value="10"> <strong>thousand gallons</strong>
+    <span class="hint" style="display:inline-block">(it's printed on your bill — 10,000 gallons = enter 10; the district median is about 12)</span>
+
+    <div id="bills" style="margin-top:1.2rem"></div>
+
+    <div class="legend">
+      <span><i class="sw" style="background:var(--segW)"></i>Water</span>
+      <span><i class="sw" style="background:var(--segN)"></i>NFBWA (water authority, $4.90/1,000 gal)</span>
+      <span><i class="sw" style="background:var(--segS)"></i>Sewer <em>&nbsp;(hatched = the trash bill hiding inside)</em></span>
+      <span><i class="sw" style="background:var(--segF)"></i>$100 "Capital" fee (Scenario 2 only)</span>
     </div>
-    <p class="fine">All figures are the full monthly water + sewer bill <strong>including</strong> the NFBWA pass-through fee ($4.90 per 1,000 gallons) that every customer pays — the real check you write. Scenario 2 includes its $100/month Capital Project Base Fee. Computed from the rate tables presented Aug 3, 2026 (handout pp. 4 &amp; 6; the unpublished S1 40–50k water tier is assumed at $4.50) and the counter-proposal in the brief below. S3 also includes a 4.5¢ M&amp;O tax component (~$28/month on the average-value home, scaled to home value) that is not part of the water bill shown here.</p>
+
+    <div class="say" id="say"></div>
+
+    <details><summary>See these numbers as a table</summary><div id="btable"></div>
+      <p class="fine">Computed from the rate tables presented Aug 3, 2026 (handout pp. 4 &amp; 6; the unprinted S1 40–50k water tier is assumed at $4.50) and the counter-proposal brief. S3 also includes a 4.5¢ tax component (≈$28/mo on the average-value home, scaled to value) that is not part of the water bill — see "the two levers" below.</p>
+    </details>
   </div>
 </section>
 
+<!-- 2 · % INCREASE BY USAGE -->
 <section>
-  <h2>The four facts behind the video</h2>
-  <figure><img src="assets/deck-img-00.png" alt="District usage distribution: 679 homes by monthly water use"><figcaption><strong>Who lives here.</strong> 679 homes, mostly modest water users: 27% already conserve (under 10,000 gal/month); only 3% use more than 30,000. Every question about "fairness" is a question about which of these bars carries the load.</figcaption></figure>
-  <figure><img src="assets/deck-img-01.png" alt="Total bill increase by usage under Scenario 1 and 2"><figcaption><strong>What the proposal does.</strong> The harder a family conserves, the harder it's hit: a 4,000-gallon household faces up to +226% (Scenario 2) while the heaviest users get the smallest increases. That is the arithmetic signature of flat fees.</figcaption></figure>
-  <figure><img src="assets/deck-img-02.png" alt="Marginal price vs true cost per 1,000 gallons"><figcaption><strong>Why.</strong> A thousand gallons truly costs $6.95 to deliver ($2.05 district + $4.90 NFBWA). The proposal prices extra water below that in the tiers where nearly all usage lives — waste subsidized by everyone's fixed fees.</figcaption></figure>
-  <figure><img src="assets/deck-img-03.png" alt="Composition of the proposed $55 sewer charge"><figcaption><strong>The label game.</strong> A third of the proposed $55 "sewer" charge is actually the garbage bill ($36.51), by the presentation's own note. A cost hidden in the wrong line can never be questioned by the people paying it.</figcaption></figure>
-  <figure><img src="assets/deck-img-04.png" alt="Scenario 1 vs counter-proposal S3 at equal revenue"><figcaption><strong>The alternative.</strong> Counter-proposal S3 raises the same total revenue (within 0.2%): conserving homes nearly untouched, heavy users pay true cost. Same money for the district — opposite message to the community.</figcaption></figure>
+  <h2>The harder a family saves water, the harder it's hit</h2>
+  <p class="sub">Each group of bars is a household size. Read left to right: under the presented scenarios the <em>smallest</em> users get the <em>biggest</em> percentage increases. The green bars — same total money for the district — flip that.</p>
+  <div class="panel">
+    <div class="gwrap anim">
+      <div class="you" id="you">YOUR<br>HOME</div>
+      <div class="gchart" id="gchart"></div>
+      <div class="gx" id="gx"></div>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--cS1)"></i>Scenario 1</span>
+      <span><i class="sw" style="background:var(--cS2)"></i>Scenario 2 (with $100 fee)</span>
+      <span><i class="sw" style="background:var(--cS3)"></i>Counter-proposal S3 — same revenue</span>
+    </div>
+    <div class="say">A family that saves water at 4,000 gallons faces <b>up to +226%</b>. The heaviest users face the smallest increases. That's not a glitch — it's what flat fees do: <b>you can't turn off a flat fee.</b></div>
+  </div>
 </section>
 
+<!-- 3 · TRUE COST -->
+<section>
+  <h2>What 1,000 gallons really costs — and what they'd sell it for</h2>
+  <p class="sub">From the district's own budget: delivering 1,000 gallons costs <strong>$6.95</strong> ($2.05 district + $4.90 water authority). Here's the price of <em>your next 1,000 gallons</em> under each plan, at your usage above.</p>
+  <div class="panel">
+    <div class="nline">
+      <div class="nl-axis"></div>
+      <div class="nl-true" id="nltrue"><b>TRUE COST $6.95</b></div>
+      <div class="nl-dot" id="dotS1" style="background:var(--cS1)"><b style="color:var(--cS1)">S1</b></div>
+      <div class="nl-dot" id="dotS3" style="background:var(--cS3)"><b style="color:var(--cS3)">S3</b></div>
+      <span class="nl-end" style="left:0">$4</span><span class="nl-end" style="right:0">$14</span>
+      <span class="nl-end" style="left:6%; top:1.4rem; color:#A64B44; font-weight:700" id="losslbl">← sold at a loss (everyone's flat fees cover it)</span>
+    </div>
+    <div class="say" id="say2"></div>
+  </div>
+</section>
+
+<!-- 4 · SEWER COSTUME -->
+<section>
+  <h2>The trash bill, wearing a sewer costume</h2>
+  <p class="sub">The presentation's own note says the new flat "sewer" charge is "designed to cover Garbage &amp; Recycling." Here is what those services actually cost, per home, per month — next to the proposed $55 label.</p>
+  <div class="panel">
+    <div class="cost-row anim" id="costrow" style="margin-bottom:2.2rem">
+      <div class="cost-seg" data-grow="47.38" style="background:var(--segS); flex-grow:0.001">Sewer — real cost $47.38</div>
+      <div class="cost-seg" data-grow="36.51" style="background:var(--segN); flex-grow:0.001"><span class="hatch"></span>Trash — real cost $36.51</div>
+      <div class="cost-mark" id="costmark"><b>the proposed flat "SEWER" charge: $55</b></div>
+    </div>
+    <div class="say">A $55 line labeled "sewer" quietly carries the trash bill — and still doesn't cover the real $83.89 total; the rest is folded into water rates and base fees. <b>Costs you can't see are costs you can't question.</b> Honest labels are free: a separate garbage line changes nobody's total — it only changes what residents get to see.</div>
+  </div>
+</section>
+
+<!-- 5 · TWO LEVERS -->
+<section>
+  <h2>The two levers — the choice the community was never shown</h2>
+  <p class="sub">Every district has two ways to raise the same dollar. <strong>A tax asks the bigger home for more. A flat fee asks every mailbox for the same.</strong> Every presented scenario freezes the tax rate at $0.128 and pulls only the fee lever. Here is the choice, side by side.</p>
+  <div class="panel" style="text-align:center">
+    <div class="toggle" role="tablist">
+      <button id="tglA" class="on">S3's ask: raise $205,793/yr</button><button id="tglB">Scenario 2's $100 fee ($818,400/yr)</button>
+    </div>
+    <div class="levers">
+      <div class="lever tax">
+        <h3>Lever 1 — by home value</h3>
+        <div class="desc" id="descTax">+4.5¢ per $100 of value on the tax bill</div>
+        <div class="big" id="bigTax">$28</div>
+        <div>per month · average-value home</div>
+      </div>
+      <div class="lever fee">
+        <h3>Lever 2 — by headcount</h3>
+        <div class="desc" id="descFee">the identical sum as a flat fee, per connection</div>
+        <div class="big" id="bigFee">$25.26</div>
+        <div>per month · <b>every</b> home, big or small</div>
+      </div>
+    </div>
+
+    <div class="houses" id="houses"></div>
+
+    <div style="margin-top:1.4rem">
+      <label for="hv"><strong>Slide to your home's value:</strong> <span id="hvlbl" style="font-variant-numeric:tabular-nums">$759,000 (district average)</span></label>
+      <input id="hv" type="range" min="300" max="1500" step="10" value="759">
+      <div class="say" id="say3" style="text-align:left"></div>
+    </div>
+
+    <div class="cross" id="cross"></div>
+  </div>
+</section>
+
+<!-- 6 · BOTH CHANNELS -->
+<section>
+  <h2>One household, both channels — the whole picture</h2>
+  <p class="sub">For the median home (12,500 gal, average value): the water bill <em>plus</em> the district tax. Solid = the monthly bill. Dark hatched = district M&amp;O tax.</p>
+  <div class="panel">
+    <div class="chan anim" id="chan"></div>
+    <div class="cx">
+      <div><b style="color:var(--cToday)">TODAY</b></div>
+      <div><b style="color:var(--cS1)">SCENARIO 1</b></div>
+      <div><b style="color:var(--cS2)">SCENARIO 2</b></div>
+      <div><b style="color:var(--cS3)">COUNTER-PROPOSAL S3</b></div>
+    </div>
+    <div class="say">Read the totals twice: <b>S3 costs the average home almost exactly what Scenario 1 does</b> ($239 vs $242). Same money for the district. The difference is <em>who</em> pays — under S3 a smaller home pays less and a bigger home pays more, on both channels. Flat fees erase that distinction. Nobody here is demanding a tax increase — the ask is that <b>both levers be shown to the community before one is chosen.</b></div>
+  </div>
+</section>
+
+<!-- FAQ -->
 <section>
   <h2>Common questions</h2>
   <details><summary>Why is the district raising rates at all?</summary>
@@ -95,6 +261,8 @@
     <p><strong>Scenario 1:</strong> water base rises to $30 (includes 5,000 gal) with new tiers, and the flat sewer charge rises from $20 to $55–75 depending on usage. <strong>Scenario 2:</strong> a steeper water structure, volumetric sewer, plus a flat <strong>$100-per-connection monthly "Capital Project Base Fee"</strong> — identical for every home regardless of size, value, or usage. The board appeared to lean toward Scenario 1, with a second phase suggested for 2028.</p></details>
   <details><summary>What is the counter-proposal (S3)?</summary>
     <p>A structure built from measured costs that raises the <strong>same total revenue within 0.2%</strong>: a low $15 water base, marginal water priced at or above its true $6.95 cost, sewer near its actual $47 connection cost, garbage on its own honest line, commercial rates 25% above Scenario 1, and a modest 4.5¢ tax component — the one lever the presented study never modeled. Every formula is open in the workbook below.</p></details>
+  <details><summary>Doesn't the tax component just move my cost to a different bill?</summary>
+    <p>For the <em>average-value</em> home, yes — deliberately: S3's total household cost (bill + tax) is within $3/month of Scenario 1's. The difference is distribution: a tax scales with the value of what you own, a flat fee ignores it. Below roughly $670,000 of home value, the flat-fee versions charge you <em>more</em> than the value-scaled version would. The study's own footnote prices the lever (each 1¢ ≈ $45,732/yr); it was simply never modeled.</p></details>
   <details><summary>What can I actually do?</summary>
     <p>Three things. <strong>Read the brief</strong> (below) so you know the numbers. <strong>Check your own bill</strong> with the calculator above. And <strong>come to the next board meeting</strong> — the board accepts resident comments, and rate design decisions are made there. The ask is modest: publish the cost-of-service measurement and show the community both levers — fees and taxes — side by side, before anything is adopted.</p></details>
   <details><summary>Who made this?</summary>
@@ -120,43 +288,131 @@
 </footer>
 
 <script>
-function tier(g, brackets) { // brackets: [limit, rate] applied to usage above prev limit
-  let cost=0, prev=0;
-  for (const [lim, rate] of brackets) {
-    if (g > prev) cost += (Math.min(g, lim) - prev) * rate;
-    prev = lim;
-  }
-  return cost;
+/* ---------- exact rate models (verified to the cent vs MUD_Water_Analysis.xlsx) ---------- */
+function tier(g,b){let c=0,p=0;for(const[l,r]of b){if(g>p)c+=(Math.min(g,l)-p)*r;p=l}return c}
+const NF=4.90;
+function parts(g){
+  const cur={W:25+tier(g,[[10,0],[20,1],[50,2],[1e9,3]]),S:20,F:0,N:NF*g};
+  const s1={W:30+tier(g,[[5,0],[10,1.5],[15,2],[20,2.5],[25,3],[30,3.5],[35,4],[40,4.5],[50,4.5],[1e9,5]]),
+            S:(g<=20?55:g<=30?60:g<=40?65:g<=50?70:75),F:0,N:NF*g};
+  const s2={W:30+tier(g,[[2,0],[5,3],[9,4],[14,4.5],[20,5.5],[27,6.5],[1e9,7.5]]),
+            S:55+tier(g,[[5,0],[8,1.5],[15,2],[20,2.5],[25,3],[1e9,3.5]]),F:100,N:NF*g};
+  const s3={W:15+tier(g,[[3,0],[10,0.85],[15,1.7],[20,3],[30,6],[1e9,8]]),
+            S:Math.min(45,30+tier(g,[[3,0],[15,1.25]])),F:0,N:NF*g};
+  for(const o of[cur,s1,s2,s3])o.T=o.W+o.S+o.F+o.N;
+  return {cur,s1,s2,s3};
 }
-const NFBWA = 4.90;
-function bills(g) {
-  // TODAY: water $25 min incl 10k; +$1/k 10-20; +$2/k 20-50; +$3/k >50; sewer $20 flat
-  const cur = 25 + tier(g, [[10,0],[20,1],[50,2],[1e9,3]]) + 20 + NFBWA*g;
-  // S1: water $30 incl 5k; 1.5/2/2.5/3/3.5/4/4.5 in 5k steps to 40k; 40-50k assumed 4.5; >50k 5
-  const s1w = 30 + tier(g, [[5,0],[10,1.5],[15,2],[20,2.5],[25,3],[30,3.5],[35,4],[40,4.5],[50,4.5],[1e9,5]]);
-  const s1s = g<=20?55 : g<=30?60 : g<=40?65 : g<=50?70 : 75;
-  const s1 = s1w + s1s + NFBWA*g;
-  // S2: water $30 incl 2k; 3/4/4.5/5.5/6.5; >27k 7.5 · sewer $55 incl 5k + 1.5/2/2.5/3/3.5 · +$100 fee
-  const s2w = 30 + tier(g, [[2,0],[5,3],[9,4],[14,4.5],[20,5.5],[27,6.5],[1e9,7.5]]);
-  const s2s = 55 + tier(g, [[5,0],[8,1.5],[15,2],[20,2.5],[25,3],[1e9,3.5]]);
-  const s2 = s2w + s2s + 100 + NFBWA*g;
-  // S3: water $15 incl 3k; 0.85 (3-10), 1.70 (10-15), 3 (15-20), 6 (20-30), 8 (>30) · sewer $30 + 1.25/k on 3-15k cap $45
-  const s3w = 15 + tier(g, [[3,0],[10,0.85],[15,1.7],[20,3],[30,6],[1e9,8]]);
-  const s3s = Math.min(45, 30 + tier(g, [[3,0],[15,1.25]]));
-  const s3 = s3w + s3s + NFBWA*g;
-  return {cur, s1, s2, s3};
+const $=id=>document.getElementById(id);
+const fmt=x=>"$"+x.toFixed(2);
+const money=x=>"$"+Math.round(x).toLocaleString();
+
+/* ---------- 1 · bill bars ---------- */
+const ROWS=[["TODAY","cur","var(--cToday)"],["SCENARIO 1","s1","var(--cS1)"],["SCENARIO 2","s2","var(--cS2)"],["S3 — FAIR","s3","var(--cS3)"]];
+function segHTML(key,o,max){
+  const px=v=>Math.max(0,(v/max*100));
+  const trash=key==='s1'||key==='s2'; // garbage hidden in the flat sewer charge
+  return `<div class="bar">
+    <div class="seg first" title="Water: ${fmt(o.W)}" style="background:var(--segW);width:${px(o.W)}%"></div>
+    <div class="seg" title="NFBWA water authority: ${fmt(o.N)}" style="background:var(--segN);width:${px(o.N)}%"></div>
+    <div class="seg ${o.F? '':'last'}" title="Sewer: ${fmt(o.S)}${trash?' — includes the $36.51 trash bill':''}" style="background:var(--segS);width:${px(o.S)}%">${trash?'<span class="hatch" style="width:'+Math.min(100,36.51/o.S*100)+'%; right:0; left:auto"></span>':''}</div>
+    ${o.F?`<div class="seg last" title="Capital Project Base Fee: $100.00" style="background:var(--segF);width:${px(o.F)}%"></div>`:''}
+  </div>`;
 }
-const fmt = x => "$" + x.toFixed(2);
-const pct = (x, c) => { const p = Math.round((x-c)/c*100); return (p>=0?"+":"") + p + "% vs today"; };
-function upd() {
-  const g = Math.max(0, parseFloat(document.getElementById('gal').value) || 0);
-  const b = bills(g);
-  cCur.textContent = fmt(b.cur);
-  cS1.textContent = fmt(b.s1); pS1.textContent = pct(b.s1, b.cur);
-  cS2.textContent = fmt(b.s2); pS2.textContent = pct(b.s2, b.cur);
-  cS3.textContent = fmt(b.s3); pS3.textContent = pct(b.s3, b.cur);
+function drawBills(g){
+  const p=parts(g); const max=Math.max(p.cur.T,p.s1.T,p.s2.T,p.s3.T)*1.02;
+  $('bills').innerHTML=ROWS.map(([lbl,k,c])=>`
+    <div class="brow"><div class="lbl" style="color:${c}">${lbl}</div>
+      <div class="track">${segHTML(k,p[k],max)}</div>
+      <div class="tot" style="color:${c}">${fmt(p[k].T)}<div style="font-size:.72rem;font-weight:600;color:var(--ink2)">${k==='cur'?'today':(p[k].T>=p.cur.T?'+':'')+Math.round((p[k].T-p.cur.T)/p.cur.T*100)+'% vs today'}</div></div>
+    </div>`).join('');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('#bills .bar').forEach(b=>b.style.width='100%')}));
+  const d1=p.s1.T-p.s3.T, d2=p.s2.T-p.s3.T;
+  $('say').innerHTML=`At <b>${g.toLocaleString()} thousand gallons</b>: their Scenario 1 bill is <b style="color:var(--cS1)">${fmt(p.s1.T)}</b> and Scenario 2 is <b style="color:var(--cS2)">${fmt(p.s2.T)}</b>. The fair-shape version that raises the <em>same money</em> for the district: <b style="color:var(--cS3)">${fmt(p.s3.T)}</b> — ${d1>0?`<b>${fmt(d1)} less than S1</b> and <b>${fmt(d2)} less than S2</b>, every month`:`more than S1, because at this usage you're a heavy user — and heavy use finally pays its true cost`}.`;
+  // table
+  $('btable').innerHTML=`<table><tr><th>Line</th><th>Today</th><th>S1</th><th>S2</th><th>S3</th></tr>
+    ${[["Water","W"],["NFBWA","N"],["Sewer","S"],["Capital fee","F"],["TOTAL","T"]].map(([n,k])=>`<tr><td>${n}</td>${["cur","s1","s2","s3"].map(s=>`<td>${fmt(p[s][k])}</td>`).join('')}</tr>`).join('')}</table>`;
+  // number line (chart 3)
+  const m=s=>parts(g+1)[s].T-parts(g)[s].T;
+  const mS1=m('s1'), mS3=m('s3');
+  const pos=v=>Math.min(100,Math.max(0,(v-4)/(14-4)*100));
+  $('nltrue').style.left=pos(6.95)+'%';
+  $('dotS1').style.left=pos(mS1)+'%'; $('dotS1').title=`Scenario 1: your next 1,000 gallons costs ${fmt(mS1)}`;
+  $('dotS3').style.left=pos(mS3)+'%'; $('dotS3').title=`S3: your next 1,000 gallons costs ${fmt(mS3)}`;
+  $('say2').innerHTML=`At your usage, Scenario 1 sells the next 1,000 gallons for <b style="color:var(--cS1)">${fmt(mS1)}</b>${mS1<6.95?' — <b>below</b> the $6.95 it costs. Someone pays the difference: every neighbor’s flat fees, including the ones who conserve':' (above cost at this tier)'}. Under S3 it's <b style="color:var(--cS3)">${fmt(mS3)}</b> — ${mS3>=6.95?'at or above true cost, so <b>saving water actually saves you money</b>':'covered by the low base'}.`;
+  // YOU marker on grouped chart
+  const bks=[4,7,12.5,17.5,22.5,27.5,35];
+  let bi=0; for(let i=0;i<bks.length;i++) if(Math.abs(g-bks[i])<Math.abs(g-bks[bi])) bi=i;
+  $('you').style.left=(bi/7*100+100/14)+'%';
 }
-document.getElementById('gal').addEventListener('input', upd); upd();
+$('gal').addEventListener('input',()=>drawBills(Math.max(0,parseFloat($('gal').value)||0)));
+
+/* ---------- 2 · grouped % ---------- */
+const GX=["4k<br>(saves most)","7k","12.5k<br>(median)","17.5k","22.5k","27.5k","35k<br>(uses most)"];
+const GS={s1:[62,54,46,41,40,36,36],s2:[226,202,176,162,153,146,143],s3:[3,11,18,21,26,31,41]};
+const GMAX=240;
+$('gchart').innerHTML=GX.map((_,i)=>`<div class="ggroup">
+   <div class="gbar" data-h="${GS.s1[i]/GMAX*100}" style="background:var(--cS1)"><i>+${GS.s1[i]}%</i></div>
+   <div class="gbar" data-h="${GS.s2[i]/GMAX*100}" style="background:var(--cS2)"><i>+${GS.s2[i]}%</i></div>
+   <div class="gbar" data-h="${GS.s3[i]/GMAX*100}" style="background:var(--cS3)"><i>+${GS.s3[i]}%</i></div>
+ </div>`).join('');
+$('gx').innerHTML=GX.map(t=>`<div>${t}</div>`).join('');
+
+/* ---------- 5 · levers ---------- */
+const AVG=759; // $k, Exhibit B average homestead
+const MODE={A:{rate:0.045,fee:25.26,desc1:"+4.5¢ per $100 of value on the tax bill",desc2:"the identical $205,793/yr as a flat fee, per connection"},
+            B:{rate:0.179,fee:100.00,desc1:"the tax rate that raises the same $818,400/yr: +17.9¢ per $100",desc2:'the proposed flat $100/month "Capital Project Base Fee"'}};
+let mode='A';
+const taxMo=(vk,rate)=>vk*1000*rate/100/12;
+function drawLevers(){
+  const m=MODE[mode]; const vk=parseFloat($('hv').value);
+  $('descTax').textContent=m.desc1; $('descFee').textContent=m.desc2;
+  $('bigTax').textContent=fmt(taxMo(AVG,m.rate)); $('bigFee').textContent=fmt(m.fee);
+  const houses=[["Smaller home",450],["Average home",759],["Larger home",1200]];
+  const hmax=Math.max(taxMo(1200,m.rate),m.fee)*1.15;
+  $('houses').innerHTML=houses.map(([n,v])=>{
+    const t=taxMo(v,m.rate);
+    const sc=v/1200;
+    return `<div class="hcard">
+      <svg viewBox="0 0 100 62"><g transform="translate(50,58) scale(${0.55+0.45*sc})"><polygon points="-42,-26 0,-52 42,-26" fill="#8FA3BC"/><rect x="-32" y="-26" width="64" height="26" fill="#B9C6D6"/><rect x="-7" y="-16" width="14" height="16" fill="#FAFAF8"/></g></svg>
+      <div class="pair">
+        <div class="pbar" data-h="${t/hmax*100}" style="background:var(--cToday)"><i style="color:var(--cToday)">${fmt(t)}</i></div>
+        <div class="pbar" data-h="${m.fee/hmax*100}" style="background:var(--cS2)"><i style="color:var(--cS2)">${fmt(m.fee)}</i></div>
+      </div>
+      <div class="hname"><b>${n}</b> · ${money(v*1000)}<br><span style="color:var(--cToday)">tax</span> vs <span style="color:var(--cS2)">flat fee</span></div>
+    </div>`}).join('');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('.pbar').forEach(b=>b.style.height=b.dataset.h+'%')}));
+  const t=taxMo(vk,m.rate); const diff=m.fee-t;
+  $('hvlbl').textContent=money(vk*1000)+(vk===AVG?" (district average)":"");
+  $('say3').innerHTML=`For a ${money(vk*1000)} home: the value-scaled lever costs <b style="color:var(--cToday)">${fmt(t)}/month</b>; the flat fee charges <b style="color:var(--cS2)">${fmt(m.fee)}/month</b> — ${Math.abs(diff)<1?'about the same':diff>0?`<b>you pay ${fmt(diff)} more every month under the flat fee</b>, and the difference goes to discounting bigger properties`:`the flat fee is cheaper for you — value-scaling asks more of larger homes like this one`}.`;
+  const cross=Math.round(m.fee*12/(m.rate/100)/1000);
+  $('cross').innerHTML=`<b>The break-even is a home value of about ${money(cross*1000)}.</b> Below it, the flat fee charges you more than the tax would; above it, less. ${mode==='B'?'The $100 fee is, in substance, a 17.9¢ tax priced so that only the largest homes come out ahead — collected without calling it one.':'Nobody is demanding a tax increase — the ask is that both levers be priced per household and shown side by side, exactly like this, before one is chosen.'}`;
+}
+$('hv').addEventListener('input',drawLevers);
+$('tglA').onclick=()=>{mode='A';$('tglA').classList.add('on');$('tglB').classList.remove('on');drawLevers()};
+$('tglB').onclick=()=>{mode='B';$('tglB').classList.add('on');$('tglA').classList.remove('on');drawLevers()};
+
+/* ---------- 6 · both channels ---------- */
+const CH=[["cur",108.75,82.48,"var(--cToday)"],["s1",159.75,82.48,"var(--cS1)"],["s2",295.25,82.48,"var(--cS2)"],["s3",128.33,110.93,"var(--cS3)"]];
+const CMAX=400;
+$('chan').innerHTML=CH.map(([k,b,t,c])=>`<div class="ccol">
+   <div class="cstack" data-h="${(b+t)/CMAX*100}">
+     <div class="cbill" title="monthly bill ${fmt(b)}" style="background:${c}; flex:0 0 ${b/(b+t)*100}%"></div>
+     <div class="ctax" title="district M&O tax ${fmt(t)}/mo" style="flex:1"><span class="hatch"></span></div>
+   </div>
+   <div class="ctot" style="color:${c}">${fmt(b+t)}</div>
+ </div>`).join('');
+
+/* ---------- scroll-in animation ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting) return;
+  e.target.querySelectorAll('.gbar').forEach((b,i)=>setTimeout(()=>b.style.height=b.dataset.h+'%', i*40));
+  e.target.querySelectorAll('.cost-seg').forEach(b=>b.style.flexGrow=b.dataset.grow);
+  e.target.querySelectorAll('.cstack').forEach((b,i)=>setTimeout(()=>b.style.height=b.dataset.h+'%', i*120));
+  if(e.target.querySelector('#costmark')) setTimeout(()=>{$('costmark').style.left=(55/83.89*100)+'%'},350);
+  io.unobserve(e.target);
+}),{threshold:.35});
+document.querySelectorAll('.anim').forEach(el=>io.observe(el));
+
+drawBills(10); drawLevers();
 </script>
 </body>
 </html>
