@@ -85,6 +85,7 @@
   .ccol { display:flex; flex-direction:column-reverse; align-items:center; height:100%; position:relative; }
   .cstack { width:64%; max-width:5rem; display:flex; flex-direction:column-reverse; gap:2px; height:0%; transition:height .9s cubic-bezier(.2,.7,.3,1); }
   .cbill { border-radius:4px; } .ctax { border-radius:6px 6px 4px 4px; background:var(--navy); position:relative; }
+  .ctax.wcid { background:#70859A; }
   .ctax .hatch { border-radius:inherit; }
   .ctot { position:absolute; top:-1.6rem; left:50%; transform:translateX(-50%); font-weight:800; font-size:.95rem; }
   .cx { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; text-align:center; font-size:.85rem; color:var(--ink2); margin-top:.5rem; }
@@ -102,6 +103,10 @@
   .btns { display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1rem; }
   .btn { display:inline-block; background:var(--navy); color:#fff; text-decoration:none; padding:.75rem 1.2rem; border-radius:8px; font-weight:600; }
   .btn.alt { background:#fff; color:var(--navy); border:2px solid var(--navy); }
+  .source-links { margin-top:1.6rem; }
+  .source-links h3 { margin-bottom:.25rem; }
+  .source-links .card p { color:#33404F; font-size:.9rem; margin:.45rem 0 .7rem; }
+  .source-links .btn { font-size:.82rem; padding:.55rem .8rem; }
   footer { background:var(--navy); color:#B8C6DA; text-align:center; padding:2rem 1rem; font-size:.9rem; margin-top:2rem; }
   footer .motto { color:#fff; font-weight:700; font-size:1.05rem; margin-bottom:.4rem; }
   .note { background:#FFF7E8; border:1px solid #EAD7A8; border-radius:10px; padding:1rem 1.2rem; margin-top:1.2rem; font-size:.95rem; }
@@ -184,7 +189,7 @@
     <div class="say" id="say"></div>
 
     <details><summary>See these numbers as a table</summary><div id="btable"></div>
-      <p class="fine">Computed from the rate tables presented Aug 3, 2026 (handout pp. 4 &amp; 6; the unprinted S1 40–50k water tier is assumed at $4.50) and the counter-proposal brief. S3 also includes a 4.5¢ tax component (≈$28/mo on the average-value home, scaled to value) that is not part of the water bill — see "the two levers" below.</p>
+      <p class="fine">Computed from the rate tables presented Aug 3, 2026 (handout pp. 4 &amp; 6; the unprinted S1 40–50k water tier is assumed at $4.50) and the counter-proposal brief. S3 also includes a 4.5¢ MUD 2 tax component ($13.31/mo on the verified median taxable value, scaled to value) that is not part of the water bill — see "the two levers" below.</p>
     </details>
   </div>
 </section>
@@ -242,17 +247,17 @@
 <!-- 5 · TWO LEVERS -->
 <section>
   <h2>The two levers — the choice the community was never shown</h2>
-  <p class="sub">Every district has two ways to raise the same dollar. <strong>A tax asks the bigger home for more. A flat fee asks every mailbox for the same.</strong> Every presented scenario freezes the tax rate at $0.128 and pulls only the fee lever. Here is the choice, side by side.</p>
+  <p class="sub">Every district has two ways to raise the same dollar. <strong>A tax asks the bigger taxable value for more. A flat fee asks every mailbox for the same.</strong> Every presented scenario freezes the tax rate at $0.128 and pulls only the fee lever. Here is the choice, side by side.</p>
   <div class="panel" style="text-align:center">
     <div class="toggle" role="tablist">
       <button id="tglA" class="on">S3's ask: raise $205,793/yr</button><button id="tglB">Scenario 2's $100 fee ($818,400/yr)</button>
     </div>
     <div class="levers">
       <div class="lever tax">
-        <h3>Lever 1 — by home value</h3>
+        <h3>Lever 1 — by taxable value</h3>
         <div class="desc" id="descTax">+4.5¢ per $100 of value on the tax bill</div>
-        <div class="big" id="bigTax">$28</div>
-        <div>per month · average-value home</div>
+        <div class="big" id="bigTax">$13.31</div>
+        <div>per month · verified median taxable value</div>
       </div>
       <div class="lever fee">
         <h3>Lever 2 — by headcount</h3>
@@ -265,8 +270,8 @@
     <div class="houses" id="houses"></div>
 
     <div style="margin-top:1.4rem">
-      <label for="hv"><strong>Slide to your home's value:</strong> <span id="hvlbl" style="font-variant-numeric:tabular-nums">$759,000 (district average)</span></label>
-      <input id="hv" type="range" min="300" max="1500" step="10" value="759">
+      <label for="hv"><strong>Slide to your taxable value:</strong> <span id="hvlbl" style="font-variant-numeric:tabular-nums">$355,035 (verified median taxable value)</span></label>
+      <input id="hv" type="range" min="100" max="800" step="5" value="355.035">
       <div class="say" id="say3" style="text-align:left"></div>
     </div>
 
@@ -274,10 +279,55 @@
   </div>
 </section>
 
-<!-- 6 · BOTH CHANNELS -->
+<!-- 6 · TAX RECORD -->
+<section>
+  <h2>What the tax record reveals</h2>
+  <p class="sub">The water bill and the property-tax statements are separate channels. The verified 2025 example below is included so a household can see the full district picture without publishing private statement images or account identifiers.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="name">THREE SEPARATE STATEMENTS</div>
+      <p>A Grand Lakes household may receive a county statement, a MUD 2 statement, and a WCID statement. The county statement covers Katy ISD, the county, ESD, drainage, and other county-taxing units — it does not replace the district statements.</p>
+      <p><strong>Verified 2025 district taxes:</strong> MUD 2 $454.44 + WCID $232.99 = <strong>$687.43/year</strong> ($57.29/month). The same home's verified water bills totaled $1,159.80 for the year.</p>
+    </div>
+    <div class="card">
+      <div class="name">THE TWO DISTRICT TAXES</div>
+      <p><strong>MUD 2:</strong> $355,035 median taxable value after the 20% homestead exemption × $0.1280 = $454.44/year ($37.87/month).</p>
+      <p><strong>WCID:</strong> $443,794 taxable value with no homestead exemption × $0.0525 = $232.99/year ($19.42/month).</p>
+    </div>
+    <div class="card">
+      <div class="name">THE TAX BASE IS NOT ONLY HOMES</div>
+      <p>The district's $466,651,883 taxable base includes substantial commercial and institutional property — including Home Depot, grocery and strip centers, an elementary school, and a car wash. A value-scaled tax shares the load with that base; a flat household fee does not.</p>
+      <p>For S3's $205,793/year target, the estimated home share is roughly $106–133k and the commercial share roughly $73–99k, depending on the taxable-value mix.</p>
+    </div>
+  </div>
+  <div class="note"><strong>A discrepancy worth resolving.</strong> Exhibit B cites average homestead O&amp;M tax of $989.78; at the stated $0.1280 rate that implies an average taxable value of about $773,266. The FY2027 budget cites total taxable value of $466,651,883; applying that average to roughly 680 homes would exceed the entire district base. Which figure is controlling? That is a neutral records question for the district, not an accusation.</div>
+</section>
+
+<!-- 7 · BOND EXPLAINER -->
+<section>
+  <h2>A bond and a rate plan answer different questions</h2>
+  <p class="sub">Tim Fleming, a neighbor, asked for a plain-language explanation of the bond discussion. The key distinction is authorization versus collection: a bond can authorize capital borrowing, while an operating rate plan funds recurring service.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="name">AUTHORIZATION IS A LIMIT, NOT A PURCHASE</div>
+      <p>A bond authorization is like a credit-card limit: it permits borrowing up to an amount, but it is not itself a purchase. Debt can be issued in series as projects are ready, subject to the district's legal and financial process.</p>
+    </div>
+    <div class="card">
+      <div class="name">WHY A BOND CAN FIT CAPITAL</div>
+      <p>A 30-year asset can be paid for over the period in which residents use it. Pay-as-you-go avoids interest, but it asks current ratepayers to carry the full cost up front. The district presentation recommended capital base fees “in lieu of long-term bonds” after the bond election failed.</p>
+    </div>
+    <div class="card">
+      <div class="name">THE HONEST TRADEOFF</div>
+      <p>Bond debt service is paid through property taxes, which scale with taxable value. Interest and a long commitment are the counterweight. Tomas's position is that an S3 operating design and a carefully described capital plan can be complementary, not substitutes.</p>
+    </div>
+  </div>
+  <div class="note"><strong>What is not yet known:</strong> the project list, authorized amount, and household tax impact. We will not publish hard bond numbers until the district's bond materials or a new election notice supplies them. Credit for this explainer: Tim Fleming.</div>
+</section>
+
+<!-- 8 · BOTH CHANNELS -->
 <section>
   <h2>One household, both channels — the whole picture</h2>
-  <p class="sub">For the median home (12,500 gal, average value): the water bill <em>plus</em> the district tax. Solid = the monthly bill. Dark hatched = district M&amp;O tax.</p>
+  <p class="sub">For the median home (12,500 gal, verified taxable value): the water bill <em>plus</em> the separate MUD 2 and WCID district taxes. Solid = the monthly bill. Dark hatched = MUD 2 O&amp;M tax; slate = WCID tax.</p>
   <div class="panel">
     <div class="chan anim" id="chan"></div>
     <div class="cx">
@@ -286,7 +336,8 @@
       <div><b style="color:var(--cS2)">SCENARIO 2</b></div>
       <div><b style="color:var(--cS3)">COUNTER-PROPOSAL S3</b></div>
     </div>
-    <div class="say">Read the totals twice: <b>S3 costs the average home almost exactly what Scenario 1 does</b> ($239 vs $242). Same money for the district. The difference is <em>who</em> pays — under S3 a smaller home pays less and a bigger home pays more, on both channels. Flat fees erase that distinction. Nobody here is demanding a tax increase — the ask is that <b>both levers be shown to the community before one is chosen.</b></div>
+    <div class="legend"><span><i class="sw" style="background:var(--cToday)"></i>Water bill</span><span><i class="sw" style="background:var(--navy)"></i>MUD 2 tax</span><span><i class="sw" style="background:#70859A"></i>WCID tax</span></div>
+    <div class="say">Read the totals twice: <b>S3 is $198.93/month for the verified median home versus $217.04 under Scenario 1</b> — $18.11 less. The difference is <em>who</em> pays: under S3 a smaller taxable value pays less and a bigger taxable value pays more, while the separate WCID tax remains visible. Nobody here is demanding a tax increase — the ask is that <b>both levers be shown to the community before one is chosen.</b></div>
   </div>
 </section>
 
@@ -301,8 +352,10 @@
     <p><strong>Scenario 1:</strong> water base rises to $30 (includes 5,000 gal) with new tiers, and the flat sewer charge rises from $20 to $55–75 depending on usage. <strong>Scenario 2:</strong> a steeper water structure, volumetric sewer, plus a flat <strong>$100-per-connection monthly "Capital Project Base Fee"</strong> — identical for every home regardless of size, value, or usage. The board appeared to lean toward Scenario 1, with a second phase suggested for 2028.</p></details>
   <details><summary>What is the counter-proposal (S3)?</summary>
     <p>A structure built from measured costs that raises the <strong>same total revenue within 0.2%</strong>: a low $15 water base, marginal water priced at or above its true $6.95 cost, sewer near its actual $47 connection cost, garbage on its own honest line, commercial rates 25% above Scenario 1, and a modest 4.5¢ tax component — the one lever the presented study never modeled. Every formula is open in the workbook below.</p></details>
+  <details><summary>Do I pay more than one water-district tax?</summary>
+    <p>Likely yes, if your property is in both Grand Lakes MUD 2 and Grand Lakes WCID. They levy separately and are not included on the county bill. Check the Wheeler statement for MUD 2 and the Bonnerjee/B&amp;A statement for WCID, or ask your escrow provider. Confirm the district names on your own statements.</p></details>
   <details><summary>Doesn't the tax component just move my cost to a different bill?</summary>
-    <p>For the <em>average-value</em> home, yes — deliberately: S3's total household cost (bill + tax) is within $3/month of Scenario 1's. The difference is distribution: a tax scales with the value of what you own, a flat fee ignores it. Below roughly $670,000 of home value, the flat-fee versions charge you <em>more</em> than the value-scaled version would. The study's own footnote prices the lever (each 1¢ ≈ $45,732/yr); it was simply never modeled.</p></details>
+    <p>For a verified median home, yes — deliberately: S3's total household cost is $198.93/month versus $217.04 under Scenario 1. The difference is distribution: a tax scales with taxable value, a flat fee ignores it. Below roughly $674,000 of taxable value, the flat-fee version charges more than the value-scaled version would. The study's own footnote prices the lever (each 1¢ ≈ $45,732/yr); it was simply never modeled.</p></details>
   <details><summary>What can I actually do?</summary>
     <p>Three things. <strong>Read the brief</strong> (below) so you know the numbers. <strong>Check your own bill</strong> with the calculator above. And <strong>come to the next board meeting</strong> — the board accepts resident comments, and rate design decisions are made there. The ask is modest: publish the cost-of-service measurement and show the community both levers — fees and taxes — side by side, before anything is adopted.</p></details>
   <details><summary>Who made this?</summary>
@@ -313,10 +366,33 @@
 <section>
   <h2>Read the numbers yourself</h2>
   <div class="btns">
-    <a class="btn" href="assets/A-Fairer-Rate-Order-GLMUD2.pdf" download>Download the full brief (PDF, 15 pages)</a>
+    <a class="btn" href="assets/A-Fairer-Rate-Order-GLMUD2.pdf" download>Download the corrected brief (PDF, 17 pages)</a>
     <a class="btn alt" href="assets/MUD_Water_Analysis.xlsx" download>Download the open workbook (Excel)</a>
     <a class="btn alt" href="assets/EVO-study-handouts-Aug-3-2026.pdf" download>Download the ORIGINAL Aug 3 board handouts (source document, PDF)</a>
+  </div>
   <p class="fine">The handouts are the "EVO 10-Year Financial Operating Strategy," prepared for Grand Lakes MUD 2 and distributed publicly at the open board meeting of August 3, 2026. Posted here unaltered, for resident verification only, because the district has not yet published them online. The brief above has the author's account number redacted in this public copy.</p>
+
+  <div class="source-links">
+    <h3>Follow the public record</h3>
+    <p class="sub">For meeting notices, agendas, raw district documents, and the community's governing documents, start with the original public sources:</p>
+    <div class="cards">
+      <div class="card">
+        <div class="name">GRAND LAKES MUD NO. 2</div>
+        <p>Official district agendas, minutes, and posted meeting documents.</p>
+        <a class="btn" href="https://www.grandlakesmud2.com/documents/" target="_blank" rel="noopener noreferrer">Open MUD 2 documents ↗</a>
+      </div>
+      <div class="card">
+        <div class="name">GRAND LAKES WCID</div>
+        <p>Public district information, agendas, and meeting minutes.</p>
+        <a class="btn" href="https://districtdirectory.org/fort-bend-county/grand-lakes-water-control-and-improvement-district/" target="_blank" rel="noopener noreferrer">Open WCID profile &amp; meetings ↗</a>
+      </div>
+      <div class="card">
+        <div class="name">GRAND LAKES COMMUNITY ASSOCIATION</div>
+        <p>Declaration of Covenants, Conditions, and Restrictions (CC&amp;Rs), bylaws, and amendments.</p>
+        <a class="btn" href="https://grandlakesvoice.com/documents" target="_blank" rel="noopener noreferrer">Open HOA documents ↗</a>
+      </div>
+    </div>
+    <p class="fine">These links leave this independent resident analysis and may change as the districts or association update their sites. Confirm which district and phase apply to your property before relying on a document.</p>
   </div>
   <p class="hint">The handouts are the EVO 10-Year Financial Operating Strategy exactly as distributed at the open board meeting — so you can verify every number yourself. The workbook contains every formula: the 60-bill audit, the rate models, the scenario impacts, and the editable S3 counter-proposal calibrated on the district's own 679-meter distribution.</p>
 </section>
@@ -400,7 +476,7 @@ $('gchart').innerHTML=GX.map((_,i)=>`<div class="ggroup">
 $('gx').innerHTML=GX.map(t=>`<div>${t}</div>`).join('');
 
 /* ---------- 5 · levers ---------- */
-const AVG=759; // $k, Exhibit B average homestead
+const AVG=355.035; // $k, verified median taxable value after 20% homestead exemption
 const MODE={A:{rate:0.045,fee:25.26,desc1:"+4.5¢ per $100 of value on the tax bill",desc2:"the identical $205,793/yr as a flat fee, per connection"},
             B:{rate:0.179,fee:100.00,desc1:"the tax rate that raises the same $818,400/yr: +17.9¢ per $100",desc2:'the proposed flat $100/month "Capital Project Base Fee"'}};
 let mode='A';
@@ -409,11 +485,11 @@ function drawLevers(){
   const m=MODE[mode]; const vk=parseFloat($('hv').value);
   $('descTax').textContent=m.desc1; $('descFee').textContent=m.desc2;
   $('bigTax').textContent=fmt(taxMo(AVG,m.rate)); $('bigFee').textContent=fmt(m.fee);
-  const houses=[["Smaller home",450],["Average home",759],["Larger home",1200]];
-  const hmax=Math.max(taxMo(1200,m.rate),m.fee)*1.15;
+  const houses=[["Smaller taxable value",200],["Verified median",355.035],["Larger taxable value",600]];
+  const hmax=Math.max(taxMo(600,m.rate),m.fee)*1.15;
   $('houses').innerHTML=houses.map(([n,v])=>{
     const t=taxMo(v,m.rate);
-    const sc=v/1200;
+    const sc=v/600;
     return `<div class="hcard">
       <svg viewBox="0 0 100 62"><g transform="translate(50,58) scale(${0.55+0.45*sc})"><polygon points="-42,-26 0,-52 42,-26" fill="#8FA3BC"/><rect x="-32" y="-26" width="64" height="26" fill="#B9C6D6"/><rect x="-7" y="-16" width="14" height="16" fill="#FAFAF8"/></g></svg>
       <div class="pair">
@@ -424,25 +500,26 @@ function drawLevers(){
     </div>`}).join('');
   requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('.pbar').forEach(b=>b.style.height=b.dataset.h+'%')}));
   const t=taxMo(vk,m.rate); const diff=m.fee-t;
-  $('hvlbl').textContent=money(vk*1000)+(vk===AVG?" (district average)":"");
-  $('say3').innerHTML=`For a ${money(vk*1000)} home: the value-scaled lever costs <b style="color:var(--cToday)">${fmt(t)}/month</b>; the flat fee charges <b style="color:var(--cS2)">${fmt(m.fee)}/month</b> — ${Math.abs(diff)<1?'about the same':diff>0?`<b>you pay ${fmt(diff)} more every month under the flat fee</b>, and the difference goes to discounting bigger properties`:`the flat fee is cheaper for you — value-scaling asks more of larger homes like this one`}.`;
+  $('hvlbl').textContent=money(vk*1000)+(Math.abs(vk-AVG)<.001?" (verified median taxable value)":"");
+  $('say3').innerHTML=`For a ${money(vk*1000)} taxable value: the value-scaled lever costs <b style="color:var(--cToday)">${fmt(t)}/month</b>; the flat fee charges <b style="color:var(--cS2)">${fmt(m.fee)}/month</b> — ${Math.abs(diff)<1?'about the same':diff>0?`<b>you pay ${fmt(diff)} more every month under the flat fee</b>, and the difference goes to discounting bigger taxable values`:`the flat fee is cheaper for you — value-scaling asks more of larger taxable values like this one`}.`;
   const cross=Math.round(m.fee*12/(m.rate/100)/1000);
-  $('cross').innerHTML=`<b>The break-even is a home value of about ${money(cross*1000)}.</b> Below it, the flat fee charges you more than the tax would; above it, less. ${mode==='B'?'The $100 fee is, in substance, a 17.9¢ tax priced so that only the largest homes come out ahead — collected without calling it one.':'Nobody is demanding a tax increase — the ask is that both levers be priced per household and shown side by side, exactly like this, before one is chosen.'}`;
+  $('cross').innerHTML=`<b>The break-even is a taxable value of about ${money(cross*1000)}.</b> Below it, the flat fee charges you more than the tax would; above it, less. ${mode==='B'?'The $100 fee is, in substance, a 17.9¢ tax priced so that only the largest taxable values come out ahead — collected without calling it one.':'Nobody is demanding a tax increase — the ask is that both levers be priced per household and shown side by side, exactly like this, before one is chosen.'}`;
 }
 $('hv').addEventListener('input',drawLevers);
 $('tglA').onclick=()=>{mode='A';$('tglA').classList.add('on');$('tglB').classList.remove('on');drawLevers()};
 $('tglB').onclick=()=>{mode='B';$('tglB').classList.add('on');$('tglA').classList.remove('on');drawLevers()};
 
-/* ---------- 6 · both channels ---------- */
-const CH=[["cur",108.75,82.48,"var(--cToday)"],["s1",159.75,82.48,"var(--cS1)"],["s2",295.25,82.48,"var(--cS2)"],["s3",128.33,110.93,"var(--cS3)"]];
+/* ---------- 8 · both channels ---------- */
+const CH=[["cur",108.75,37.87,19.42,"var(--cToday)"],["s1",159.75,37.87,19.42,"var(--cS1)"],["s2",295.25,37.87,19.42,"var(--cS2)"],["s3",128.33,51.18,19.42,"var(--cS3)"]];
 const CMAX=400;
-$('chan').innerHTML=CH.map(([k,b,t,c])=>`<div class="ccol">
-   <div class="cstack" data-h="${(b+t)/CMAX*100}">
-     <div class="cbill" title="monthly bill ${fmt(b)}" style="background:${c}; flex:0 0 ${b/(b+t)*100}%"></div>
-     <div class="ctax" title="district M&O tax ${fmt(t)}/mo" style="flex:1"><span class="hatch"></span></div>
+$('chan').innerHTML=CH.map(([k,b,mud,wcid,c])=>{const total=b+mud+wcid; return `<div class="ccol">
+   <div class="cstack" data-h="${total/CMAX*100}">
+     <div class="cbill" title="monthly water bill ${fmt(b)}" style="background:${c}; flex:0 0 ${b/total*100}%"></div>
+     <div class="ctax" title="MUD 2 M&amp;O tax ${fmt(mud)}/mo" style="flex:0 0 ${mud/total*100}%"><span class="hatch"></span></div>
+     <div class="ctax wcid" title="WCID tax ${fmt(wcid)}/mo" style="flex:0 0 ${wcid/total*100}%"></div>
    </div>
-   <div class="ctot" style="color:${c}">${fmt(b+t)}</div>
- </div>`).join('');
+   <div class="ctot" style="color:${c}">${fmt(total)}</div>
+ </div>`}).join('');
 
 /* ---------- scroll-in animation ---------- */
 const io=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting) return;
