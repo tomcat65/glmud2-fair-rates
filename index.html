@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Fairer Rate Order — Grand Lakes MUD 2</title>
-<meta name="description" content="What the Aug 3, 2026 rate proposal means for your water bill — and a counter-proposal that raises the same revenue with an honest shape. Built entirely from the district's own numbers.">
+<meta name="description" content="What the August 2026 rate proposal and newly released capital plan mean for your water bill — with source documents, open calculations, and a fairer alternative.">
 <style>
   :root { --navy:#17304F; --paper:#FAFAF8; --ink2:#5A626E; --line:#E3E5E8;
     /* scenario identity (validated) */ --cToday:#3A66A8; --cS1:#D9932C; --cS2:#B3261E; --cS3:#1F8A63;
@@ -94,6 +94,29 @@
   .card .name { font-size:.85rem; font-weight:700; letter-spacing:.05em; color:var(--ink2); }
   .card .amt { font-size:1.9rem; font-weight:700; margin:.2rem 0; font-variant-numeric:tabular-nums; }
   .card .pct { font-weight:600; font-size:.95rem; }
+  /* ----- capital-plan charts ----- */
+  .cip-summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr)); gap:.8rem; margin:1.2rem 0; }
+  .cip-stat { background:#fff; border:2px solid var(--line); border-radius:10px; padding:1rem; }
+  .cip-stat b { display:block; color:var(--cS2); font-size:1.65rem; line-height:1.1; font-variant-numeric:tabular-nums; }
+  .cip-stat span { display:block; color:var(--ink2); font-size:.85rem; margin-top:.35rem; }
+  .cip-scroll { overflow-x:auto; padding:.35rem 0 .75rem; }
+  .cip-plot { position:relative; min-width:46rem; height:20rem; padding:1.7rem .7rem 2.2rem; border-left:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .cip-bars { position:absolute; inset:1.7rem .7rem 2.2rem; display:grid; grid-template-columns:repeat(10,1fr); gap:.55rem; align-items:end; }
+  .cip-col { height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; position:relative; }
+  .cip-value { font-size:.67rem; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; margin-bottom:.2rem; }
+  .cip-bar { width:72%; max-width:2.8rem; height:var(--h); min-height:4px; background:var(--cToday); border-radius:5px 5px 0 0; }
+  .cip-year { position:absolute; top:calc(100% + .35rem); font-size:.72rem; color:var(--ink2); }
+  .cip-fee-line { position:absolute; left:.7rem; right:.7rem; bottom:calc(2.2rem + 27.4%); border-top:3px dashed var(--cS2); z-index:2; pointer-events:none; }
+  .cip-fee-line span { position:absolute; right:0; top:-1.55rem; padding:.05rem .25rem; background:#fff; color:var(--cS2); font-size:.72rem; font-weight:700; }
+  .funding-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(11.5rem,1fr)); gap:.8rem; margin-top:1rem; }
+  .funding-option { background:#fff; border:2px solid var(--line); border-radius:10px; padding:1rem; }
+  .funding-option.recommended { border-color:var(--cS3); }
+  .funding-option .amount { font-size:1.65rem; font-weight:800; font-variant-numeric:tabular-nums; margin:.15rem 0; }
+  .funding-option .meter { height:.65rem; background:#EEF0F3; border-radius:999px; overflow:hidden; margin:.6rem 0; }
+  .funding-option .meter i { display:block; height:100%; width:var(--w); background:var(--cToday); }
+  .funding-option.recommended .meter i { background:var(--cS3); }
+  .funding-option p { color:#33404F; font-size:.88rem; }
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   details { background:#fff; border:1px solid var(--line); border-radius:10px; padding:1rem 1.2rem; margin:.6rem 0; }
   summary { font-weight:700; cursor:pointer; }
   details p { margin:.6rem 0; color:#33404F; }
@@ -326,7 +349,10 @@
       <p>For S3's $205,793/year target, the estimated home share is roughly $106–133k and the commercial share roughly $73–99k, depending on the taxable-value mix.</p>
     </div>
   </div>
-  <div class="note"><strong>A discrepancy worth resolving.</strong> Exhibit B cites average homestead O&amp;M tax of $989.78; at the stated MUD 2 rate of $0.1280 that implies a value of about $773,266. But if $989.78 is actually the combined MUD 2 + WCID levy, dividing by the combined rates (0.1280 + 0.0525) implies an average value near $548,000 before exemption nuances — plausible. Exhibit B may simply include the separate WCID levy under a MUD 2 label. The definitive record is the Truth-in-Taxation worksheet (Form 50-860 if the district is classified as developed), filed with Wheeler &amp; Associates; it should settle both the average-homestead value and the §49.23602/§49.23603 classification. Which figure is controlling? That is a neutral records question, not an accusation.</div>
+  <div class="note">
+    <p><strong>A discrepancy worth resolving.</strong> Exhibit B cites average homestead O&amp;M tax of $989.78; at the stated MUD 2 rate of $0.1280 that implies a value of about $773,266. But if $989.78 is actually the combined MUD 2 + WCID levy, dividing by the combined rates (0.1280 + 0.0525) implies an average value near $548,000 before exemption nuances — plausible. Exhibit B may simply include the separate WCID levy under a MUD 2 label. The definitive record is the Truth-in-Taxation worksheet (Form 50-860 if the district is classified as developed), filed with Wheeler &amp; Associates; it should settle both the average-homestead value and the §49.23602/§49.23603 classification. Which figure is controlling? That is a neutral records question, not an accusation.</p>
+    <p style="margin-top:.8rem"><strong>A third two-versions question.</strong> The public-information response contains two FY2027 proposed budgets. One computes maintenance-tax collections at a $0.128 rate on $459,413,419 of taxable value, producing $576,300. The other uses $0.130460 on $466,651,883, producing $596,600. That is a 1.92% rate increase — below the 3.5% election trigger — while the rate study assumes “a steady M&amp;O tax rate of $0.128” throughout. Which rate is operative? The complete response is posted below so residents can inspect both versions.</p>
+  </div>
 </section>
 
 <!-- 8 · BOND EXPLAINER -->
@@ -340,7 +366,7 @@
     </div>
     <div class="card">
       <div class="name">WHY A BOND CAN FIT CAPITAL</div>
-      <p>A 30-year asset can be paid for over the period in which residents use it. Under pay-as-you-go, today's residents fund the full repair and may move before receiving the full benefit. With a bond, a resident who leaves stops paying and a new owner picks up the bond tax for the years they use the asset. Pay-as-you-go avoids interest, but it asks current ratepayers to carry the full cost up front. The district presentation recommended capital base fees “in lieu of long-term bonds” after the May 2026 request for new bond authorization did not pass, while Scenario 1 still assumes drawing $3.3M from previously approved authorization. That assumption needs records confirmation; it does not establish that all prior authorization is exhausted.</p>
+      <p>A 30-year asset can be paid for over the period in which residents use it. Under pay-as-you-go, today's residents fund the full repair and may move before receiving the full benefit. With a bond, a resident who leaves stops paying and a new owner picks up the bond tax for the years they use the asset. Pay-as-you-go avoids interest, but it asks current ratepayers to carry the full cost up front. Compared like-for-like — fully funded against fully funded — cash-funding the entire plan costs the verified home $190.89 per month versus $117.70 under matched funding, for the same work. The district presentation recommended capital base fees “in lieu of long-term bonds” after the May 2026 request for new bond authorization did not pass, while Scenario 1 still assumes drawing $3.3M from previously approved authorization. That assumption needs records confirmation; it does not establish that all prior authorization is exhausted.</p>
     </div>
     <div class="card">
       <div class="name">THE HONEST TRADEOFF</div>
@@ -352,10 +378,86 @@
       <p>This is not a benefit everyone receives: households using the standard deduction get no separate itemized SALT deduction, and Tomas says he does not itemize. The fairness case for the tax channel rests mainly on value-scaling; deductibility is a limited bonus where it applies.</p>
     </div>
   </div>
-  <div class="note"><strong>What is not yet known:</strong> the project list, authorized amount, and household tax impact. We will not publish hard bond numbers until the district's bond materials or a new election notice supplies them. Credit for this explainer: a concerned neighbor.</div>
+  <div class="note"><strong>What is now known — and what is not:</strong> the District produced the project list on August 10: MUD 2's printed share is $15,622,074 over ten years. Still unknown are the amount of remaining bond authorization and the commercial share of the District's taxable value. Any specific future bond terms would require the District's bond materials or a new election notice. Credit for this explainer: a concerned neighbor.</div>
 </section>
 
-<!-- 9 · BOTH CHANNELS -->
+<!-- 9 · CAPITAL PLAN -->
+<section id="capital-plan">
+  <h2>Paying for our water needs — the $100 fee and the $15.6 million plan</h2>
+  <p class="sub">On August 10, the District produced its 10-Year Capital Improvements Plan in response to a Texas Public Information Act request. The plan's own grand-total line prints MUD 2's ten-year share as <strong>$15,622,074</strong> — larger than the “$11M” cited by the rate study. Spending peaks at <strong>$2.98 million in fiscal 2029</strong> and remains above $1.8 million for six consecutive years.</p>
+
+  <div class="cip-summary" aria-label="Capital-plan headline figures">
+    <div class="cip-stat"><b>$15.62M</b><span>MUD 2 ten-year share printed by the District</span></div>
+    <div class="cip-stat"><b>$2.98M</b><span>Peak annual spending in fiscal 2029</span></div>
+    <div class="cip-stat"><b>52%</b><span>Share funded by the proposed $100 monthly fee</span></div>
+    <div class="cip-stat"><b>~$7.4M</b><span>Ten-year gap left by that fee</span></div>
+  </div>
+
+  <div class="panel">
+    <h3>Ten-year spending versus the proposed fee</h3>
+    <p class="hint" id="cip-spend-caption">District plan values by fiscal year. The dashed line is the $818,400 collected annually by a $100 monthly fee across the study's 682 connections.</p>
+    <div class="cip-scroll">
+      <div class="cip-plot" role="img" aria-labelledby="cip-spend-caption" aria-describedby="cip-spend-data">
+        <div class="cip-fee-line"><span>$0.818M annual fee revenue</span></div>
+        <div class="cip-bars" aria-hidden="true">
+          <div class="cip-col"><span class="cip-value">$0.10M</span><i class="cip-bar" style="--h:3.4%"></i><span class="cip-year">2025</span></div>
+          <div class="cip-col"><span class="cip-value">$1.32M</span><i class="cip-bar" style="--h:44.3%"></i><span class="cip-year">2026</span></div>
+          <div class="cip-col"><span class="cip-value">$2.03M</span><i class="cip-bar" style="--h:68.2%"></i><span class="cip-year">2027</span></div>
+          <div class="cip-col"><span class="cip-value">$2.36M</span><i class="cip-bar" style="--h:78.9%"></i><span class="cip-year">2028</span></div>
+          <div class="cip-col"><span class="cip-value">$2.98M</span><i class="cip-bar" style="--h:100%"></i><span class="cip-year">2029</span></div>
+          <div class="cip-col"><span class="cip-value">$2.04M</span><i class="cip-bar" style="--h:68.3%"></i><span class="cip-year">2030</span></div>
+          <div class="cip-col"><span class="cip-value">$1.83M</span><i class="cip-bar" style="--h:61.4%"></i><span class="cip-year">2031</span></div>
+          <div class="cip-col"><span class="cip-value">$2.08M</span><i class="cip-bar" style="--h:69.8%"></i><span class="cip-year">2032</span></div>
+          <div class="cip-col"><span class="cip-value">$0.70M</span><i class="cip-bar" style="--h:23.5%"></i><span class="cip-year">2033</span></div>
+          <div class="cip-col"><span class="cip-value">$0.17M</span><i class="cip-bar" style="--h:5.8%"></i><span class="cip-year">2034</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="sr-only" id="cip-spend-data">Fiscal-year plan values: 2025, $100,490; 2026, $1,321,089; 2027, $2,034,966; 2028, $2,355,128; 2029, $2,984,397; 2030, $2,037,527; 2031, $1,833,527; 2032, $2,081,701; 2033, $701,626; 2034, $171,624.</p>
+    <div class="say"><strong>The proposed $100 monthly Capital Base Fee raises $818,400 per year against average plan needs of $1,562,207.</strong> It funds 52% of the plan it is named for, and in seven of ten years the plan costs more than the fee collects. The rate study itself recommends “planned annual increases of Capital Base fees” if a bond election does not succeed.</div>
+  </div>
+
+  <div class="panel" style="margin-top:1rem">
+    <h3>Four ways to pay — one verified home</h3>
+    <p class="hint">Monthly equivalents from the open analysis workbook. The options do not fund the same share unless marked 100%.</p>
+    <div class="funding-grid">
+      <div class="funding-option">
+        <div class="name">PROPOSED FLAT FEE</div>
+        <div class="amount">$100.00/mo</div>
+        <div class="meter" aria-label="Funds 52 percent"><i style="--w:52%"></i></div>
+        <p><strong>Funds 52%.</strong> Leaves roughly $7.4 million unfunded over ten years.</p>
+      </div>
+      <div class="funding-option">
+        <div class="name">CASH-FUND EVERYTHING</div>
+        <div class="amount">$190.89/mo</div>
+        <div class="meter" aria-label="Funds 100 percent"><i style="--w:100%"></i></div>
+        <p><strong>Funds 100%.</strong> Current residents carry the entire capital cost as it occurs.</p>
+      </div>
+      <div class="funding-option">
+        <div class="name">DEBT-FUND EVERYTHING</div>
+        <div class="amount">$68.41/mo</div>
+        <div class="meter" aria-label="Funds 100 percent"><i style="--w:100%"></i></div>
+        <p><strong>Funds 100%.</strong> Lowest monthly equivalent, with interest and a long commitment.</p>
+      </div>
+      <div class="funding-option recommended">
+        <div class="name">MATCH FUNDING TO ASSET LIFE</div>
+        <div class="amount">$117.70/mo</div>
+        <div class="meter" aria-label="Funds 100 percent"><i style="--w:100%"></i></div>
+        <p><strong>Funds 100%.</strong> Uses current rates for shorter-cycle renewal and debt for long-lived replacement.</p>
+      </div>
+    </div>
+    <div class="note"><strong>The authored brief's recommendation:</strong> match the funding term to the asset life. About two fifths of the plan is recurring renewal that belongs in rates; about three fifths is 20-to-50-year replacement — the kind of work debt is designed to spread across the residents who use it.</div>
+  </div>
+
+  <div class="btns">
+    <a class="btn" href="assets/Paying-for-Our-Water-Needs-GLMUD2.pdf" download>Download the capital-plan brief (PDF, 12 pages)</a>
+    <a class="btn alt" href="assets/MUD2-Capital-Plan-analysis.xlsx" download>Download the open capital-plan workbook (Excel)</a>
+    <a class="btn alt" href="assets/2026-08-10-PIA-Response-FULL-PUBLIC-COPY-redacted.pdf" download>Download the District's complete PIA response (PDF, 32 pages)</a>
+  </div>
+  <p class="fine">The third file is the District's complete response to a resident's Public Information Act request, posted for resident verification. The public copy is unaltered except for labeled redactions covering the requester's street address, non-public work email, and water-account identifier.</p>
+</section>
+
+<!-- 10 · BOTH CHANNELS -->
 <section>
   <h2>One household, both channels — the whole picture</h2>
   <p class="sub">For one verified Grand Lakes home (12,500 gal; below the community average): the water bill <em>plus</em> the separate MUD 2 and WCID district taxes. Solid = the monthly bill. Dark hatched = MUD 2 O&amp;M tax; slate = WCID drainage/stormwater tax.</p>
@@ -377,6 +479,10 @@
   <h2>Common questions</h2>
   <details><summary>Why is the district raising rates at all?</summary>
     <p>The district's stated case: the May 2026 request for new bond authorization did not pass, sales-tax (SPA) revenue collapsed, and on current rates its reserves go deeply negative over the next decade. <strong>Nobody here disputes that the district needs the money it says it needs</strong> — the brief verifies the $950,923 revenue target against the FY2027 budget line by line. The disagreement is about the <em>shape</em>: who carries it, and whether prices reflect measured costs.</p></details>
+  <details><summary>What will the $100 Capital Base Fee actually fund?</summary>
+    <p>About half. The fee raises $818,400 a year; the District's own ten-year Capital Improvements Plan needs an average of $1,562,207 a year. Over ten years the gap is roughly $7.4 million, and the rate study itself recommends further annual fee increases if a bond election does not succeed. The complete plan, analysis, and source response are downloadable above.</p></details>
+  <details><summary>What's actually in the capital plan?</summary>
+    <p>Renewal of a plant that is reaching the end of its first service life on schedule — most of the wastewater plant dates to 2001, most lift stations to 2000–2006, with 15–25 year service lives. Generators, electrical gear, tank recoating, pumps, and piping. This is not a surprise and not mismanagement; it is what infrastructure does at year 25. The question raised here is not whether to pay for it, but which instrument collects it.</p></details>
   <details><summary>Am I in Grand Lakes MUD 2?</summary>
     <p>Look at the top of your water bill. If it says <strong>GRAND LAKES MUD 2</strong>, this is your district (neighbors on adjacent streets may be in MUD 1, MUD 4, or the WCID — their rates are set separately).</p></details>
   <details><summary>What are Scenario 1 and Scenario 2?</summary>
@@ -434,7 +540,7 @@
 
 <footer>
   <div class="motto">Measure first. Then manage.</div>
-  <div>Prepared by Tomas Alvarez · resident &amp; ratepayer, Rose Grove Lane · talvarez@txwos.com</div>
+  <div>Prepared by Tomas Alvarez · resident &amp; ratepayer, Rose Grove Lane · <a href="mailto:tomasalvarez65@outlook.com" style="color:inherit">tomasalvarez65@outlook.com</a></div>
   <div style="margin-top:.4rem">Built entirely from the district's own numbers. This is a resident's independent analysis, not a district publication.</div>
 </footer>
 
