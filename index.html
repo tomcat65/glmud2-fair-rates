@@ -130,6 +130,26 @@
   .source-links h3 { margin-bottom:.25rem; }
   .source-links .card p { color:#33404F; font-size:.9rem; margin:.45rem 0 .7rem; }
   .source-links .btn { font-size:.82rem; padding:.55rem .8rem; }
+  .conclusion p { max-width:52rem; margin:.9rem 0; color:#27384B; }
+  .conclusion .signature { font-weight:700; margin-top:1.25rem; }
+  .calc-launch { color:var(--navy); text-underline-offset:.16em; }
+  #calc-dialog { width:min(62rem,calc(100vw - 2rem)); max-width:none; max-height:calc(100dvh - 2rem); padding:0; border:0; border-radius:14px; color:var(--navy); background:var(--paper); box-shadow:0 20px 70px rgba(12,28,48,.35); }
+  #calc-dialog:not([open]) { display:none; }
+  #calc-dialog::backdrop { background:rgba(10,24,42,.68); }
+  .dialog-head { position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.85rem 1rem; background:var(--navy); color:#fff; }
+  .dialog-head h2 { margin:0; font-size:1.15rem; }
+  .dialog-close { border:2px solid #fff; border-radius:8px; padding:.42rem .75rem; background:#fff; color:var(--navy); font:inherit; font-weight:700; cursor:pointer; }
+  #calc-dialog-body { padding:1rem; }
+  #calc-dialog-body .panel { margin:0; }
+  @media (max-width:44rem){
+    #calc-dialog { width:100vw; height:100dvh; max-height:none; margin:0; border-radius:0; }
+    #calc-dialog-body { padding:.75rem; }
+    #calc-dialog-body .panel { border:0; padding:.75rem; }
+  }
+  @media print {
+    .calc-launch { color:inherit; }
+    #calc-dialog { display:none !important; }
+  }
   footer { background:var(--navy); color:#B8C6DA; text-align:center; padding:2rem 1rem; font-size:.9rem; margin-top:2rem; }
   footer .motto { color:#fff; font-weight:700; font-size:1.05rem; margin-bottom:.4rem; }
   .note { background:#FFF7E8; border:1px solid #EAD7A8; border-radius:10px; padding:1rem 1.2rem; margin-top:1.2rem; font-size:.95rem; }
@@ -201,7 +221,9 @@
 <section id="calc">
   <h2>Your real bill, under each plan</h2>
   <p class="sub">Enter the gallons shown on your bill. Each bar shows the <strong>entire monthly water bill</strong> — water, sewer, fees, and the NFBWA charge the district passes directly through to customers.</p>
-  <div class="panel">
+  <p class="sub"><strong>Scenario 3 (S3) is a neighbor's proposal, not one of the district's two options.</strong> It is included here because it raises the same total revenue using the district's own figures.</p>
+  <div id="calc-home">
+  <div class="panel" id="calc-panel">
     <label for="gal"><strong>Your monthly water use:</strong></label>
     <input id="gal" type="number" min="0" max="120" step="1" value="10"> <strong>thousand gallons</strong>
     <span class="hint" style="display:inline-block">(it's printed on your bill — 10,000 gallons = enter 10; the district median is about 12)</span>
@@ -220,6 +242,7 @@
     <details><summary>See these numbers as a table</summary><div id="btable"></div>
       <p class="fine">Computed from the rate tables presented Aug. 3, 2026 (handout pp. 4 &amp; 6; the unprinted S1 price for 40,000–50,000 gallons is assumed to be $4.50 per 1,000 gallons) and the counter-proposal brief. S3 also adds 4.5¢ to the MUD 2 property-tax rate. That equals $13.31 per month for one verified Grand Lakes home below the community average, and it is not part of the water bill. The proposed tax increase is large enough that voters would get a say through the election or petition rule that applies to MUD 2, as explained below.</p>
     </details>
+  </div>
   </div>
 </section>
 
@@ -479,6 +502,33 @@
   </div>
 </section>
 
+<!-- 11 · CONCLUSION -->
+<section id="conclusion" class="conclusion">
+  <h2>What I'd choose, and why — you decide for yourself</h2>
+
+  <p>Let me say the hard part first, because you deserve to hear it plainly: <strong>there is no option where your bill stays where it is.</strong> The district needs more money — that part checks out, line by line, against its own budget. The only real question left is which version of the increase we pick. And we do get a say in that.</p>
+
+  <p>Here's how the choices land on a typical Grand Lakes home — about 12,000 gallons a month, taxable value around $355,000. Every number below comes from the district's own documents, downloadable on this page, so don't take my word for anything.</p>
+
+  <p><strong>The board's likely plan (Scenario 1)</strong> puts that home at about <strong>$217 a month</strong>. It hides the trash bill inside a line called "sewer," and the families who conserve the most get the biggest percentage increases. The plan also comes with a second round of increases already suggested for 2028.</p>
+
+  <p><strong>Scenario 3 (S3) is not one of the district's options — it's mine.</strong> The district presented two scenarios on August 3; this is a neighbor's alternative, built from the district's own numbers, and the board would have to choose to take it up. I call it Scenario 3 because it belongs in the same comparison: it raises the district the <strong>same money</strong> and puts the same home at about <strong>$199</strong>. The difference is just honesty in the shape: you pay for the water you actually use, sewer costs what sewer costs, and trash gets its own line on the bill. If your sprinkler system is wasting money, your bill shows you — and you can fix it. Under a flat fee, there's nothing to fix. Mine goes up the most on my street under Scenario 3, because my sprinklers were the biggest wasters. I proposed it anyway.</p>
+
+  <p><strong>Then there's the repair plan</strong> — and this one isn't anyone's fault. Our plant was built around 2001, equipment lasts 15 to 25 years, and the district's own list totals $15.6 million over ten years. The proposed $100 monthly fee covers about <strong>half</strong> of that, and the district's study already recommends raising it yearly. So the $100 isn't a price. It's a starting bid.</p>
+
+  <p>The alternative is the one we already voted on once: <strong>bonds.</strong> Borrow for the equipment that lasts 20 to 50 years, repaid through property taxes — about <strong>$41 a month</strong> on that typical home instead of $100, and it funds the whole plan. I understand why the May bond vote failed: nobody showed us what the money bought or what it cost our own house per month. That's what this page is for. Look at the list. <a class="calc-launch" href="#calc">Do the math on your own home with the calculator above.</a></p>
+
+  <p>One more thing an engineer owes you: the $15.6 million is a planning estimate — the district's own document calls it "a budgetary tool" to be reviewed annually — and planning estimates carry cushions. Roughly a quarter of that total is contingency and engineering allowance, not equipment. That's normal and prudent at this stage. But it is also the strongest reason to prefer bonds over a fixed fee: <strong>bonds are only issued when projects are actually bid, so if real prices come in lower, we borrow less and the tax is smaller. A flat fee written into the rate order keeps collecting the cushion forever, whether it was needed or not. You should never lock a permanent rate or tax against a planning-stage estimate — you lock it against real bids.</strong></p>
+
+  <p>Which is my last ask, and it costs the district almost nothing: <strong>before adopting any permanent fee or tax for the repair plan, take the first two years of projects to bid-ready estimates and publish them.</strong> The near-term list is already defined — the tank recoating, the treatment-plant electrical work, the lift station rehabilitation. Real quotes on real scopes. Then size whatever we adopt against those numbers, and true it up in public once a year, exactly as the plan's own notes say it should be reviewed. Good estimates make good neighbors.</p>
+
+  <p>Add it up: <strong>Scenario 3 plus the bond</strong> costs that home about <strong>$240 a month with everything actually funded</strong> — and treat that as the ceiling, not the bill, because it is priced at the plan's full face value before a single project is competitively bid. Against it: $217 that funds none of the repairs and grows again in 2028. I'd rather pay $23 more and stop getting surprised.</p>
+
+  <p>That's my conclusion. It doesn't have to be yours. Every document is on this page, the workbook has every formula open, and if you run the numbers and land somewhere different, bring it to the next board meeting — that's exactly where this decision gets made, and the room works better full.</p>
+
+  <p class="signature">— Tomas</p>
+</section>
+
 <!-- FAQ -->
 <section>
   <h2>Common questions</h2>
@@ -501,7 +551,7 @@
   <details><summary>Is there a cap on the rate increase?</summary>
     <p>A limit is confirmed for increases in the district's <strong>operating property tax</strong>, not for water rates. For a district legally classified as developed, Water Code §49.23602 requires an automatic election above a 3.5% increase on the average home. Section 49.23603 provides an 8% threshold at which voters in some other districts may call an election by petition. A neighboring WCID document explains WCID's rule, but it does not establish MUD 2's classification. The district's official tax-rate calculation worksheet should answer that question. No state-law cap on MUD 2 water rates has been found in the materials reviewed. A pending records request asks whether the district's agreement with Houston contains a separate contractual cap.</p></details>
   <details><summary>What can I actually do?</summary>
-    <p>Three things. <strong>Read the brief</strong> below so you know the numbers. <strong>Check your own bill</strong> with the calculator above. And <strong>come to the next board meeting</strong> — the board accepts resident comments, and rate decisions are made there. The request is straightforward: publish the measured cost of service and show the community both the flat-fee and property-tax options before adopting one.</p></details>
+    <p>Three things. <strong>Read the brief</strong> below so you know the numbers. <a class="calc-launch" href="#calc"><strong>Check your own bill</strong> with the calculator above.</a> And <strong>come to the next board meeting</strong> — the board accepts resident comments, and rate decisions are made there. The request is straightforward: publish the measured cost of service and show the community both the flat-fee and property-tax options before adopting one.</p></details>
   <details><summary>Who made this?</summary>
     <p>Tomas Alvarez — a resident and ratepayer on Rose Grove Lane since 2021. Everything here comes from public documents: five years of his own bills, the district's published rate order, the FY2027 proposed budget, and the handouts from the August 3 board meeting. Erika Alvarez contributed the plain-language review and helped translate utility and tax terminology into neighbor-friendly wording. And yes — under Tomas's own counter-proposal, his bill goes up the most on his street, because the audit found his own sprinkler system was the biggest waster. He proposed it anyway.</p></details>
   <div class="note"><strong>A note on tone.</strong> This is not an accusation. The district's billing arithmetic is clean — 60 bills audited, zero errors. The critique is of <em>the proposal as presented on August 3, 2026</em>, and it comes with a constructive alternative at the same bottom line. If the flat-fee design still wins an open debate, so be it — at least the community will have chosen it.</div>
@@ -542,6 +592,14 @@
 </section>
 
 </div>
+
+<dialog id="calc-dialog" aria-labelledby="calc-dialog-title" aria-modal="true">
+  <div class="dialog-head">
+    <h2 id="calc-dialog-title">Calculate your bill</h2>
+    <button class="dialog-close" id="calc-dialog-close" type="button" aria-label="Close calculator and return to the page">Close</button>
+  </div>
+  <div id="calc-dialog-body"></div>
+</dialog>
 
 <footer>
   <div class="motto">Measure first. Then manage.</div>
@@ -675,6 +733,61 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting) retu
   io.unobserve(e.target);
 }),{threshold:.35});
 document.querySelectorAll('.anim').forEach(el=>io.observe(el));
+
+/* ---------- shared calculator dialog ----------
+   The existing calculator panel moves into the dialog and back. No rates,
+   calculations, rendering code, or input state are copied. The links retain
+   href="#calc" as their no-JS, unsupported-browser, accessibility, and print
+   fallback. */
+const calcDialog=$('calc-dialog');
+const calcPanel=$('calc-panel');
+const calcHome=$('calc-home');
+const calcDialogBody=$('calc-dialog-body');
+const calcDialogClose=$('calc-dialog-close');
+let calcReturnFocus=null;
+
+function openCalculatorDialog(trigger){
+  calcReturnFocus=trigger;
+  calcDialogBody.appendChild(calcPanel);
+  try {
+    calcDialog.showModal();
+    requestAnimationFrame(()=>$('gal').focus());
+  } catch (error) {
+    calcHome.appendChild(calcPanel);
+    calcReturnFocus=null;
+    location.hash='calc';
+  }
+}
+
+document.querySelectorAll('.calc-launch').forEach(link=>link.addEventListener('click',event=>{
+  if(typeof calcDialog.showModal!=='function') return;
+  event.preventDefault();
+  openCalculatorDialog(link);
+}));
+
+calcDialogClose.addEventListener('click',()=>calcDialog.close());
+calcDialog.addEventListener('close',()=>{
+  calcHome.appendChild(calcPanel);
+  if(calcReturnFocus){
+    const trigger=calcReturnFocus;
+    calcReturnFocus=null;
+    trigger.focus();
+  }
+});
+
+calcDialog.addEventListener('keydown',event=>{
+  if(event.key!=='Tab') return;
+  const focusable=[...calcDialog.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')]
+    .filter(element=>element.getClientRects().length);
+  if(!focusable.length) return;
+  const first=focusable[0], last=focusable[focusable.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+});
+
+addEventListener('beforeprint',()=>{
+  if(calcDialog.open) calcDialog.close();
+});
 
 drawBills(10); drawLevers();
 </script>
