@@ -47,6 +47,34 @@
   .gx { display:grid; grid-template-columns:repeat(7,1fr); gap:.6rem; margin-top:.4rem; text-align:center; font-size:.8rem; color:var(--ink2); }
   .you { position:absolute; top:-1.6rem; font-weight:800; font-size:.8rem; color:var(--navy); transform:translateX(-50%); transition:left .5s; text-align:center; line-height:1.1; }
   .you::after { content:"▼"; display:block; }
+  /* ----- neighborhood usage distribution ----- */
+  .usage-scroll { overflow-x:auto; padding:.3rem 0 2.4rem; }
+  .usage-chart { min-width:38rem; display:grid; grid-template-columns:repeat(9,1fr); gap:.55rem; align-items:end; height:17rem; padding:2rem .35rem 0; border-bottom:2px solid var(--line); }
+  .usage-col { height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; position:relative; }
+  .usage-count { font-size:.75rem; font-weight:800; margin-bottom:.25rem; }
+  .usage-bar { width:72%; max-width:3.2rem; height:var(--h); min-height:4px; border-radius:6px 6px 0 0; background:var(--cToday); }
+  .usage-label { position:absolute; top:calc(100% + .45rem); width:4.2rem; text-align:center; color:var(--ink2); font-size:.7rem; line-height:1.15; }
+  /* ----- authorship break and same-street comparison ----- */
+  .proposal-break { margin-top:2rem; padding:2rem 1.5rem; border:3px solid var(--cS3); border-radius:16px; background:#F1F8F5; box-shadow:0 8px 24px rgba(31,138,99,.10); }
+  .proposal-break .eyebrow { color:var(--cS3); font-weight:800; letter-spacing:.09em; font-size:.8rem; }
+  .proposal-break h2 { color:#126344; font-size:clamp(1.55rem,3.4vw,2.2rem); margin:.25rem 0 .5rem; }
+  .rule-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; margin:1.2rem 0; }
+  .rule { background:#fff; border:1px solid #BFDCCD; border-radius:10px; padding:1rem; }
+  .rule b { display:block; color:#126344; margin-bottom:.25rem; }
+  .street-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.2rem; }
+  .street-home { background:#fff; border:2px solid var(--line); border-radius:12px; padding:1.1rem; }
+  .street-home h3 { margin-bottom:.15rem; }
+  .street-row { display:grid; grid-template-columns:5.2rem 1fr 3.8rem; align-items:center; gap:.45rem; margin:.65rem 0; font-size:.82rem; font-weight:700; }
+  .street-track { height:1.5rem; border-radius:5px; background:#EEF0F3; overflow:hidden; }
+  .street-bar { display:block; height:100%; width:var(--w); min-width:3px; border-radius:5px; }
+  .street-amount { text-align:right; font-variant-numeric:tabular-nums; }
+  .source-badge { display:inline-block; padding:.2rem .55rem; border-radius:999px; font-size:.75rem; font-weight:800; letter-spacing:.03em; }
+  .source-badge.district { color:#fff; background:var(--navy); }
+  .source-badge.neighbor { color:#fff; background:var(--cS3); }
+  @media (max-width:44rem){
+    .rule-grid,.street-grid { grid-template-columns:1fr; }
+    .proposal-break { padding:1.35rem 1rem; }
+  }
   /* ----- number line ----- */
   .nline { position:relative; height:7.5rem; margin:2.4rem .4rem 0; }
   .nl-axis { position:absolute; left:0; right:0; top:4.2rem; height:8px; background:linear-gradient(90deg,#F6E3E1 0 32%, #EAF3EE 32% 100%); border-radius:4px; }
@@ -54,6 +82,8 @@
   .nl-true b { position:absolute; top:-1.9rem; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:.8rem; color:var(--cS2); }
   .nl-dot { position:absolute; top:4.05rem; width:17px; height:17px; border-radius:50%; border:2.5px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); transform:translateX(-50%); transition:left .5s; }
   .nl-dot b { position:absolute; top:1.3rem; left:50%; transform:translateX(-50%); font-size:.78rem; white-space:nowrap; font-weight:700; }
+  #dotS1 b { left:auto; right:.45rem; transform:none; }
+  #dotS3 b { left:.45rem; transform:none; }
   .nl-end { position:absolute; top:5.6rem; font-size:.75rem; color:var(--ink2); }
   /* ----- costume bar ----- */
   .cost-row { display:flex; gap:2px; height:3rem; margin-top:2.2rem; position:relative; border-radius:8px; }
@@ -69,13 +99,14 @@
   .lever .big { font-size:2.1rem; font-weight:800; margin:.4rem 0 .1rem; font-variant-numeric:tabular-nums; }
   .lever.tax { border-color:var(--cToday); } .lever.tax .big { color:var(--cToday); }
   .lever.fee { border-color:var(--cS2); } .lever.fee .big { color:var(--cS2); }
-  .houses { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; margin-top:1.4rem; }
+  .houses { display:grid; grid-template-columns:repeat(4,1fr); gap:.8rem; margin-top:1.4rem; }
   .hcard { text-align:center; }
   .hcard svg { width:100%; max-width:7rem; }
   .pair { display:flex; justify-content:center; gap:16px; align-items:end; height:5.2rem; margin-top:.3rem; }
   .pbar { width:1.6rem; border-radius:4px 4px 0 0; height:0%; transition:height .7s; position:relative; }
   .pbar i { position:absolute; top:-1.25rem; left:50%; transform:translateX(-50%); font-style:normal; font-size:.68rem; font-weight:700; white-space:nowrap; }
   .hname { font-size:.82rem; color:var(--ink2); margin-top:.3rem; }
+  @media (max-width:44rem){ .houses { grid-template-columns:repeat(2,1fr); gap:1.2rem .7rem; } }
   .toggle { display:inline-flex; border:2px solid var(--navy); border-radius:9px; overflow:hidden; margin-top:.4rem; }
   .toggle button { border:0; background:#fff; color:var(--navy); font-weight:700; padding:.5rem .9rem; cursor:pointer; font-size:.88rem; }
   .toggle button.on { background:var(--navy); color:#fff; }
@@ -172,9 +203,31 @@
   <p class="fine">This interim cut uses a synthetic Gemini TTS “Orus” voice. Tomas plans to re-record it in his own voice; the narration is identified here so the temporary voice is clear.</p>
 </section>
 
+<!-- NEIGHBORHOOD CONTEXT · BEFORE ANY RATE PROPOSAL -->
+<section id="usage-pattern">
+  <h2>First, how much water does the neighborhood actually use?</h2>
+  <p class="sub">This is the district's distribution of <strong>679 residential meters</strong>. It is background evidence, not part of any proposal. The median home uses about 12,000 gallons a month; only about 3% use more than 30,000 gallons.</p>
+  <div class="panel">
+    <div class="usage-scroll" role="img" aria-label="Distribution of 679 residential meters by monthly water use. The largest groups use 10,000 to 20,000 gallons.">
+      <div class="usage-chart">
+        <div class="usage-col"><span class="usage-count">38</span><i class="usage-bar" style="--h:19%"></i><span class="usage-label">under<br>6k</span></div>
+        <div class="usage-col"><span class="usage-count">142</span><i class="usage-bar" style="--h:71%"></i><span class="usage-label">6–10k</span></div>
+        <div class="usage-col"><span class="usage-count">200</span><i class="usage-bar" style="--h:100%"></i><span class="usage-label">10–15k</span></div>
+        <div class="usage-col"><span class="usage-count">158</span><i class="usage-bar" style="--h:79%"></i><span class="usage-label">15–20k</span></div>
+        <div class="usage-col"><span class="usage-count">84</span><i class="usage-bar" style="--h:42%"></i><span class="usage-label">20–25k</span></div>
+        <div class="usage-col"><span class="usage-count">37</span><i class="usage-bar" style="--h:18.5%"></i><span class="usage-label">25–30k</span></div>
+        <div class="usage-col"><span class="usage-count">11</span><i class="usage-bar" style="--h:5.5%"></i><span class="usage-label">30–40k</span></div>
+        <div class="usage-col"><span class="usage-count">4</span><i class="usage-bar" style="--h:2%"></i><span class="usage-label">40–50k</span></div>
+        <div class="usage-col"><span class="usage-count">5</span><i class="usage-bar" style="--h:2.5%"></i><span class="usage-label">over<br>50k</span></div>
+      </div>
+    </div>
+    <div class="say"><strong>538 of 679 homes use 20,000 gallons or less.</strong> That matters because a rate design can place very different burdens on the large middle of the neighborhood even while raising the same total revenue.</div>
+  </div>
+</section>
+
 <!-- 0 · WHAT WAS PROPOSED -->
 <section id="proposed">
-  <h2>First — what exactly did the district propose?</h2>
+  <h2>Next—what exactly did the district propose?</h2>
   <p class="sub">At the August 3, 2026 board meeting, the district presented two options for increasing monthly water bills.</p>
   <p class="sub"><strong>Why an increase?</strong> The district says it needs substantially more revenue. Sales-tax (SPA) revenue has fallen sharply, voters did not approve the district's May 2026 request for permission to issue new bonds, and the district projects that its reserves could run out and fall below zero over the next decade if nothing changes.</p>
   <p class="sub">In other words, the district does need more money. The main question is how that cost should be divided among customers and taxpayers.</p>
@@ -217,39 +270,11 @@
   <p class="hint" style="margin-top:.8rem">For reference, today's rates are a $25 water minimum covering 10,000 gallons, then $1–$3 for each additional 1,000 gallons, plus a flat $20 sewer charge. Every option also includes the NFBWA charge that the district passes directly through to customers: currently $4.90 per 1,000 gallons. Neither option changes the district's $0.128 property-tax rate; that choice is explained further down.</p>
 </section>
 
-<!-- 1 · YOUR BILL, COMPARED -->
-<section id="calc">
-  <h2>Your real bill, under each plan</h2>
-  <p class="sub">Enter the gallons shown on your bill. Each bar shows the <strong>entire monthly water bill</strong> — water, sewer, fees, and the NFBWA charge the district passes directly through to customers.</p>
-  <p class="sub"><strong>Scenario 3 (S3) is a neighbor's proposal, not one of the district's two options.</strong> It is included here because it raises the same total revenue using the district's own figures.</p>
-  <div id="calc-home">
-  <div class="panel" id="calc-panel">
-    <label for="gal"><strong>Your monthly water use:</strong></label>
-    <input id="gal" type="number" min="0" max="120" step="1" value="10"> <strong>thousand gallons</strong>
-    <span class="hint" style="display:inline-block">(it's printed on your bill — 10,000 gallons = enter 10; the district median is about 12)</span>
-
-    <div id="bills" style="margin-top:1.2rem"></div>
-
-    <div class="legend">
-      <span><i class="sw" style="background:var(--segW)"></i>Water</span>
-      <span><i class="sw" style="background:var(--segN)"></i>NFBWA charge passed through to customers ($4.90 per 1,000 gal)</span>
-      <span><i class="sw" style="background:var(--segS)"></i>Sewer <em>&nbsp;(hatched = the trash bill hiding inside)</em></span>
-      <span><i class="sw" style="background:var(--segF)"></i>$100 monthly project fee (Scenario 2 only)</span>
-    </div>
-
-    <div class="say" id="say"></div>
-
-    <details><summary>See these numbers as a table</summary><div id="btable"></div>
-      <p class="fine">Computed from the rate tables presented Aug. 3, 2026 (handout pp. 4 &amp; 6; the unprinted S1 price for 40,000–50,000 gallons is assumed to be $4.50 per 1,000 gallons) and the counter-proposal brief. S3 also adds 4.5¢ to the MUD 2 property-tax rate. That equals $13.31 per month for one verified Grand Lakes home below the community average, and it is not part of the water bill. The proposed tax increase is large enough that voters would get a say through the election or petition rule that applies to MUD 2, as explained below.</p>
-    </details>
-  </div>
-  </div>
-</section>
-
 <!-- 2 · % INCREASE BY USAGE -->
 <section>
-  <h2>The harder a family saves water, the harder it's hit</h2>
-  <p class="sub">Each group of bars is a household size. Read left to right: under the presented scenarios the <em>smallest</em> users get the <em>biggest</em> percentage increases. The green bars — same total money for the district — flip that.</p>
+  <h2>What the district's two proposals do across the neighborhood</h2>
+  <p class="sub"><span class="source-badge district">DISTRICT OPTIONS ONLY</span></p>
+  <p class="sub">Each group of bars is a level of household water use. Read left to right: under both options presented August 3, the households using the least water receive the largest percentage increases.</p>
   <div class="panel">
     <div class="gwrap anim">
       <div class="you" id="you">YOUR<br>HOME</div>
@@ -259,27 +284,21 @@
     <div class="legend">
       <span><i class="sw" style="background:var(--cS1)"></i>Scenario 1</span>
       <span><i class="sw" style="background:var(--cS2)"></i>Scenario 2 (with $100 fee)</span>
-      <span><i class="sw" style="background:var(--cS3)"></i>Counter-proposal S3 — same amount of money</span>
     </div>
-    <div class="say">A family that saves water at 4,000 gallons faces <b>up to +226%</b>. The heaviest users face the smallest increases. That's not a glitch — it's what flat fees do: <b>you can't turn off a flat fee.</b></div>
+    <div class="say">A family using 4,000 gallons faces an increase of <b>62% under Scenario 1</b> or <b>226% under Scenario 2</b>. The heaviest users receive the smallest percentage increases. That is the effect of putting more of the cost into fixed charges: <b>using less water cannot reduce a flat fee.</b></div>
   </div>
 </section>
 
 <!-- 3 · TRUE COST -->
 <section>
-  <h2>If you use 1,000 more gallons, what does it cost the district — and what do you pay?</h2>
-  <p class="sub">The district's budget shows that delivering 1,000 gallons costs <strong>$6.95</strong>: $2.05 in district costs plus the $4.90 NFBWA charge passed directly to customers. Here is what your <em>next 1,000 gallons</em> would add to your bill under each option.</p>
-  <div class="panel">
-    <div class="nline">
-      <div class="nl-axis"></div>
-      <div class="nl-true" id="nltrue"><b>TRUE COST $6.95</b></div>
-      <div class="nl-dot" id="dotS1" style="background:var(--cS1)"><b style="color:var(--cS1)">S1</b></div>
-      <div class="nl-dot" id="dotS3" style="background:var(--cS3)"><b style="color:var(--cS3)">S3</b></div>
-      <span class="nl-end" style="left:0">$4</span><span class="nl-end" style="right:0">$14</span>
-      <span class="nl-end" style="left:6%; top:1.4rem; color:#A64B44; font-weight:700" id="losslbl">← sold at a loss (everyone's flat fees cover it)</span>
-    </div>
-    <div class="say" id="say2"></div>
+  <h2>Measure the services before choosing a rate design</h2>
+  <p class="sub">The FY2027 budget nearly reproduces the district's $950,923 revenue target line by line. These are the measured service costs that any rate design has to recover.</p>
+  <div class="cards">
+    <div class="card"><div class="name">WATER</div><div class="amt">$6.95</div><p>per 1,000 gallons: $2.05 in district water costs plus the $4.90 NFBWA charge passed directly through to customers.</p></div>
+    <div class="card"><div class="name">SEWER</div><div class="amt">$47.38</div><p>per home/account per month if treated as a fixed connection cost; the flow-based equivalent is about $3 per 1,000 gallons.</p></div>
+    <div class="card"><div class="name">GARBAGE &amp; RECYCLING</div><div class="amt">$36.51</div><p>per home/account per month. It is a separate service even when a proposal places the amount inside a line labeled “sewer.”</p></div>
   </div>
+  <div class="note"><strong>Together, the measured costs total about $960,773 per year—roughly 101% of the district's target.</strong> The revenue need is real. The open question is how those costs should be divided and labeled.</div>
 </section>
 
 <!-- 4 · SEWER COSTUME -->
@@ -296,10 +315,96 @@
   </div>
 </section>
 
+<!-- NEIGHBOR COUNTER-PROPOSAL · VISUALLY AND SEMANTICALLY SEPARATE -->
+<section id="s3" class="proposal-break">
+  <div class="eyebrow">NEIGHBOR COUNTER-PROPOSAL · NOT A DISTRICT PROPOSAL</div>
+  <h2>Scenario 3: the same required revenue, divided differently</h2>
+  <p>The district presented only Scenario 1 and Scenario 2 on August 3. <strong>Scenario 3 was developed independently by a resident</strong> from the district's meter distribution, budget, and rate tables. The board did not author or present it.</p>
+  <div class="rule-grid">
+    <div class="rule"><b>1 · Raise the same money</b>Calibrated to the district's $950,923 annual target, within 0.2%.</div>
+    <div class="rule"><b>2 · Price added water honestly</b>Once the minimum is used, the combined charge for more water should reach the measured $6.95 cost.</div>
+    <div class="rule"><b>3 · Keep fixed charges near fixed costs</b>Sewer stays near its measured connection cost, while garbage is shown as its own service.</div>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="name">S3 WATER</div><p><strong>$15 minimum including 3,000 gallons.</strong> District water tiers are $0.85, $1.70, $3, $6, and $8 per 1,000 gallons as use rises. Every bill also carries the separate $4.90-per-1,000-gallon NFBWA charge.</p></div>
+    <div class="card"><div class="name">S3 SEWER</div><p><strong>$30 minimum</strong>, then $1.25 per 1,000 gallons from 3,000 through 15,000 gallons, capped at $45.</p></div>
+    <div class="card"><div class="name">S3 SHARED REVENUE</div><p>Commercial accounts pay 25% more than Scenario 1, and the district's operating property-tax rate rises by 4.5¢ per $100 of taxable value.</p></div>
+  </div>
+  <div class="say"><strong>Using the district's own meter distribution, 538 of 679 residential meters would pay less under S3 than under either district proposal.</strong> At the highest-use bins, S3 can cost more than Scenario 1 because it places more of the added cost on additional water use.</div>
+  <div class="note"><strong>The tradeoffs are part of the proposal:</strong> the 4.5¢ operating-tax increase would require the election or petition process that applies to MUD 2. Steeper water tiers can also reduce revenue if conservation succeeds, so S3 calls for a public annual check and adjustment—not a permanent promise that projections can never change.</div>
+</section>
+
+<section id="same-street">
+  <h2>Two homes on the same street</h2>
+  <p class="sub"><span class="source-badge neighbor">S3 COMPARISON BEGINS HERE</span></p>
+  <p class="sub">The corrected brief compares two nearby homes with very different water use. The homes are shown anonymously: no neighbor name, address, meter number, or account information is published.</p>
+  <div class="street-grid">
+    <article class="street-home">
+      <h3>Nearby home · about 7,000 gallons/month</h3>
+      <p class="hint">Lower-use neighbor, shown anonymously</p>
+      <div class="street-row"><span>Today</span><span class="street-track"><i class="street-bar" style="--w:17.5%;background:var(--cToday)"></i></span><span class="street-amount">$79</span></div>
+      <div class="street-row"><span>District S1</span><span class="street-track"><i class="street-bar" style="--w:27%;background:var(--cS1)"></i></span><span class="street-amount">$122</span></div>
+      <div class="street-row"><span>District S2</span><span class="street-track"><i class="street-bar" style="--w:52.9%;background:var(--cS2)"></i></span><span class="street-amount">$239</span></div>
+      <div class="street-row"><span>Neighbor S3</span><span class="street-track"><i class="street-bar" style="--w:19.5%;background:var(--cS3)"></i></span><span class="street-amount">$88</span></div>
+    </article>
+    <article class="street-home">
+      <h3>Author's home · about 24,000 gallons/month</h3>
+      <p class="hint">Higher-use home, shown without an address or account information</p>
+      <div class="street-row"><span>Today</span><span class="street-track"><i class="street-bar" style="--w:40%;background:var(--cToday)"></i></span><span class="street-amount">$181</span></div>
+      <div class="street-row"><span>District S1</span><span class="street-track"><i class="street-bar" style="--w:55.3%;background:var(--cS1)"></i></span><span class="street-amount">$250</span></div>
+      <div class="street-row"><span>District S2</span><span class="street-track"><i class="street-bar" style="--w:100%;background:var(--cS2)"></i></span><span class="street-amount">$452</span></div>
+      <div class="street-row"><span>Neighbor S3</span><span class="street-track"><i class="street-bar" style="--w:51.1%;background:var(--cS3)"></i></span><span class="street-amount">$231</span></div>
+    </article>
+  </div>
+  <div class="say"><strong>S3 does not make every household pay the same increase.</strong> It gives the lower-use home a stronger benefit and asks more of the higher-use home, while still remaining below both district proposals in this example.</div>
+</section>
+
+<!-- S3 · YOUR BILL, COMPARED -->
+<section id="calc">
+  <h2>Now compare your own bill</h2>
+  <p class="sub"><span class="source-badge district">DISTRICT: S1 &amp; S2</span> <span class="source-badge neighbor">NEIGHBOR: S3</span></p>
+  <p class="sub">Enter the gallons shown on your bill. Each bar shows the <strong>entire monthly water bill</strong>—water, sewer, fees, and the NFBWA charge passed directly through to customers. S3 appears here only after its separate authorship and rules have been explained.</p>
+  <div id="calc-home">
+  <div class="panel" id="calc-panel">
+    <label for="gal"><strong>Your monthly water use:</strong></label>
+    <input id="gal" type="number" min="0" max="120" step="1" value="10"> <strong>thousand gallons</strong>
+    <span class="hint" style="display:inline-block">(it's printed on your bill—10,000 gallons = enter 10; the district median is about 12)</span>
+    <div id="bills" style="margin-top:1.2rem"></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--segW)"></i>Water</span>
+      <span><i class="sw" style="background:var(--segN)"></i>NFBWA charge passed through to customers ($4.90 per 1,000 gal)</span>
+      <span><i class="sw" style="background:var(--segS)"></i>Sewer <em>&nbsp;(hatched = the trash bill hiding inside)</em></span>
+      <span><i class="sw" style="background:var(--segF)"></i>$100 monthly project fee (Scenario 2 only)</span>
+    </div>
+    <div class="say" id="say"></div>
+    <details><summary>See these numbers as a table</summary><div id="btable"></div>
+      <p class="fine">District S1 and S2 are computed from the August 3 rate tables. The unprinted S1 price for 40,000–50,000 gallons is assumed to be $4.50 per 1,000 gallons. Neighbor S3 is computed from the corrected counter-proposal brief. Its 4.5¢ property-tax component is separate from the water bill and would require voter involvement under the rule that applies to MUD 2.</p>
+    </details>
+  </div>
+  </div>
+</section>
+
+<section id="marginal-cost">
+  <h2>If you use 1,000 more gallons, what does it cost the district—and what do you pay?</h2>
+  <p class="sub">The district's budget puts the measured cost at <strong>$6.95 per 1,000 gallons</strong>: $2.05 in district water costs plus the $4.90 NFBWA charge. This chart compares that cost with the next 1,000 gallons under District Scenario 1 and Neighbor Scenario 3.</p>
+  <div class="panel">
+    <div class="nline">
+      <div class="nl-axis"></div>
+      <div class="nl-true" id="nltrue"><b>MEASURED COST $6.95</b></div>
+      <div class="nl-dot" id="dotS1" style="background:var(--cS1)"><b style="color:var(--cS1)">DISTRICT S1</b></div>
+      <div class="nl-dot" id="dotS3" style="background:var(--cS3)"><b style="color:var(--cS3)">NEIGHBOR S3</b></div>
+      <span class="nl-end" style="left:0">$4</span><span class="nl-end" style="right:0">$14</span>
+      <span class="nl-end" style="left:6%;top:1.4rem;color:#A64B44;font-weight:700" id="losslbl">← below measured cost</span>
+    </div>
+    <div class="say" id="say2"></div>
+  </div>
+</section>
+
 <!-- 5 · TWO LEVERS -->
 <section>
-  <h2>Two ways to collect the same money</h2>
-  <p class="sub">The district can collect more money through property taxes, flat fees, or a combination of both. <strong>A property tax charges more when a property's taxable value is higher. A flat fee charges every home/account the same amount.</strong> Taxable value means the value used to calculate the property-tax bill. Both district options keep the tax rate at $0.128 and use only water-bill charges. Here are the two approaches side by side, including when voters would get a say.</p>
+  <h2>How S3's property-tax component changes by home value</h2>
+  <p class="sub"><span class="source-badge neighbor">NEIGHBOR S3 TAX DESIGN</span></p>
+  <p class="sub"><strong>A property tax charges more when a property's taxable value is higher. A flat fee charges every home/account the same amount.</strong> Taxable value means the value used to calculate the property-tax bill. The four examples below match the corrected brief; the slider then lets you try another value.</p>
   <div class="panel" style="text-align:center">
     <div class="toggle" role="tablist">
       <button id="tglA" class="on">Compare S3: $205,793 per year</button><button id="tglB">Compare Scenario 2: $818,400 per year</button>
@@ -320,11 +425,11 @@
     </div>
     <div class="note" style="text-align:left"><strong>Important detail about S3:</strong> its proposed 4.5¢ property-tax increase would raise the district's operating tax on the average home by about 35%. That means voters would get a say through an election or petition process, depending on which Texas rule applies. Texas law uses different election rules depending on how a district is legally classified; we are still confirming which rule applies to MUD 2.</div>
 
-    <div class="houses" id="houses"></div>
+    <div class="houses" id="houses" aria-label="Four property-value examples from the corrected brief"></div>
 
     <div style="margin-top:1.4rem">
       <label for="hv"><strong>Choose a home's taxable value — the value used to calculate its property-tax bill:</strong> <span id="hvlbl" style="font-variant-numeric:tabular-nums">$355,035 (one verified Grand Lakes home; below community average)</span></label>
-      <input id="hv" type="range" min="100" max="800" step="5" value="355.035">
+      <input id="hv" type="range" min="100" max="1200" step="5" value="355.035">
       <div class="say" id="say3" style="text-align:left"></div>
     </div>
 
@@ -628,7 +733,7 @@ const fmt=x=>"$"+x.toFixed(2);
 const money=x=>"$"+Math.round(x).toLocaleString();
 
 /* ---------- 1 · bill bars ---------- */
-const ROWS=[["TODAY","cur","var(--cToday)"],["SCENARIO 1","s1","var(--cS1)"],["SCENARIO 2","s2","var(--cS2)"],["S3 — FAIR","s3","var(--cS3)"]];
+const ROWS=[["TODAY","cur","var(--cToday)"],["DISTRICT S1","s1","var(--cS1)"],["DISTRICT S2","s2","var(--cS2)"],["NEIGHBOR S3","s3","var(--cS3)"]];
 function segHTML(key,o,max){
   const px=v=>Math.max(0,(v/max*100));
   const trash=key==='s1'||key==='s2'; // garbage hidden in the flat sewer charge
@@ -648,7 +753,7 @@ function drawBills(g){
     </div>`).join('');
   requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('#bills .bar').forEach(b=>b.style.width='100%')}));
   const d1=p.s1.T-p.s3.T, d2=p.s2.T-p.s3.T;
-  $('say').innerHTML=`At <b>${g.toLocaleString()} thousand gallons</b>, Scenario 1 produces a bill of <b style="color:var(--cS1)">${fmt(p.s1.T)}</b> and Scenario 2 produces <b style="color:var(--cS2)">${fmt(p.s2.T)}</b>. The neighbor's alternative raises the <em>same amount of money</em> for the district and produces a bill of <b style="color:var(--cS3)">${fmt(p.s3.T)}</b> — ${d1>0?`<b>${fmt(d1)} less than Scenario 1</b> and <b>${fmt(d2)} less than Scenario 2</b> each month`:`more than Scenario 1 at this level of use, because higher use is charged closer to its actual cost`}.`;
+  $('say').innerHTML=`At <b>${g.toLocaleString()} thousand gallons</b>, District Scenario 1 produces a bill of <b style="color:var(--cS1)">${fmt(p.s1.T)}</b> and District Scenario 2 produces <b style="color:var(--cS2)">${fmt(p.s2.T)}</b>. The separately authored neighbor proposal produces a bill of <b style="color:var(--cS3)">${fmt(p.s3.T)}</b> — ${d1>0?`<b>${fmt(d1)} less than Scenario 1</b> and <b>${fmt(d2)} less than Scenario 2</b> each month`:`more than Scenario 1 at this level of use, because higher use is charged closer to its actual cost`}.`;
   // table
   $('btable').innerHTML=`<table><tr><th>Line</th><th>Today</th><th>S1</th><th>S2</th><th>S3</th></tr>
     ${[["Water","W"],["NFBWA charge","N"],["Sewer","S"],["Monthly project fee","F"],["TOTAL","T"]].map(([n,k])=>`<tr><td>${n}</td>${["cur","s1","s2","s3"].map(s=>`<td>${fmt(p[s][k])}</td>`).join('')}</tr>`).join('')}</table>`;
@@ -657,9 +762,9 @@ function drawBills(g){
   const mS1=m('s1'), mS3=m('s3');
   const pos=v=>Math.min(100,Math.max(0,(v-4)/(14-4)*100));
   $('nltrue').style.left=pos(6.95)+'%';
-  $('dotS1').style.left=pos(mS1)+'%'; $('dotS1').title=`Scenario 1: your next 1,000 gallons costs ${fmt(mS1)}`;
-  $('dotS3').style.left=pos(mS3)+'%'; $('dotS3').title=`S3: your next 1,000 gallons costs ${fmt(mS3)}`;
-  $('say2').innerHTML=`At your usage, the next 1,000 gallons add <b style="color:var(--cS1)">${fmt(mS1)}</b> under Scenario 1${mS1<6.95?' — <b>less</b> than the district’s $6.95 cost. Flat fees paid by all customers cover the difference':' — more than the district’s cost at this level of use'}. Under S3, the next 1,000 gallons add <b style="color:var(--cS3)">${fmt(mS3)}</b> — ${mS3>=6.95?'at least the district’s cost, so <b>using less water lowers your bill</b>':'with the remaining cost covered by the low minimum charge'}.`;
+  $('dotS1').style.left=pos(mS1)+'%'; $('dotS1').title=`District Scenario 1: your next 1,000 gallons costs ${fmt(mS1)}`;
+  $('dotS3').style.left=pos(mS3)+'%'; $('dotS3').title=`Neighbor Scenario 3: your next 1,000 gallons costs ${fmt(mS3)}`;
+  $('say2').innerHTML=`At your usage, the next 1,000 gallons add <b style="color:var(--cS1)">${fmt(mS1)}</b> under District Scenario 1${mS1<6.95?' — <b>less</b> than the measured $6.95 cost. Fixed charges paid by all customers cover the difference':' — more than the measured cost at this level of use'}. Under Neighbor Scenario 3, the next 1,000 gallons add <b style="color:var(--cS3)">${fmt(mS3)}</b> — ${mS3>=6.95?'at least the measured cost, so <b>using less water lowers your bill</b>':'with the remaining cost covered by the low minimum charge'}.`;
   // YOU marker on grouped chart
   const bks=[4,7,12.5,17.5,22.5,27.5,35];
   let bi=0; for(let i=0;i<bks.length;i++) if(Math.abs(g-bks[i])<Math.abs(g-bks[bi])) bi=i;
@@ -669,12 +774,11 @@ $('gal').addEventListener('input',()=>drawBills(Math.max(0,parseFloat($('gal').v
 
 /* ---------- 2 · grouped % ---------- */
 const GX=["4k<br>(saves most)","7k","12.5k<br>(median)","17.5k","22.5k","27.5k","35k<br>(uses most)"];
-const GS={s1:[62,54,46,41,40,36,36],s2:[226,202,176,162,153,146,143],s3:[3,11,18,21,26,31,41]};
+const GS={s1:[62,54,46,41,40,36,36],s2:[226,202,176,162,153,146,143]};
 const GMAX=240;
 $('gchart').innerHTML=GX.map((_,i)=>`<div class="ggroup">
    <div class="gbar" data-h="${GS.s1[i]/GMAX*100}" style="background:var(--cS1)"><i>+${GS.s1[i]}%</i></div>
    <div class="gbar" data-h="${GS.s2[i]/GMAX*100}" style="background:var(--cS2)"><i>+${GS.s2[i]}%</i></div>
-   <div class="gbar" data-h="${GS.s3[i]/GMAX*100}" style="background:var(--cS3)"><i>+${GS.s3[i]}%</i></div>
  </div>`).join('');
 $('gx').innerHTML=GX.map(t=>`<div>${t}</div>`).join('');
 
@@ -688,11 +792,11 @@ function drawLevers(){
   const m=MODE[mode]; const vk=parseFloat($('hv').value);
   $('descTax').textContent=m.desc1; $('descFee').textContent=m.desc2;
   $('bigTax').textContent=fmt(taxMo(AVG,m.rate)); $('bigFee').textContent=fmt(m.fee);
-  const houses=[["Smaller taxable value",200],["One verified home",355.035],["Larger taxable value",600]];
-  const hmax=Math.max(taxMo(600,m.rate),m.fee)*1.15;
+  const houses=[["Brief example",350],["Brief example",500],["Brief example",760],["Brief example",1100]];
+  const hmax=Math.max(taxMo(1100,m.rate),m.fee)*1.15;
   $('houses').innerHTML=houses.map(([n,v])=>{
     const t=taxMo(v,m.rate);
-    const sc=v/600;
+    const sc=v/1100;
     return `<div class="hcard">
       <svg viewBox="0 0 100 62"><g transform="translate(50,58) scale(${0.55+0.45*sc})"><polygon points="-42,-26 0,-52 42,-26" fill="#8FA3BC"/><rect x="-32" y="-26" width="64" height="26" fill="#B9C6D6"/><rect x="-7" y="-16" width="14" height="16" fill="#FAFAF8"/></g></svg>
       <div class="pair">
