@@ -185,6 +185,18 @@
   footer .motto { color:#fff; font-weight:700; font-size:1.05rem; margin-bottom:.4rem; }
   .note { background:#FFF7E8; border:1px solid #EAD7A8; border-radius:10px; padding:1rem 1.2rem; margin-top:1.2rem; font-size:.95rem; }
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+  /* ----- editorial notes and return links ----- */
+  .note-reference { margin-top:.4rem; font-size:.8rem; color:var(--ink2); }
+  .note-reference sup { font-size:1em; line-height:1; }
+  .note-reference a, #notes a { color:var(--navy); text-underline-offset:.15em; }
+  #notes { font-size:.8rem; color:var(--ink2); }
+  .notes-list { padding-left:1.5rem; }
+  .notes-list > li { margin-top:1.2rem; scroll-margin-top:1rem; }
+  .notes-list > li:target { outline:2px solid var(--line); outline-offset:.35rem; }
+  .notes-list h3 { color:var(--navy); font-size:.95rem; margin-bottom:.35rem; }
+  #notes .note, #notes .fine, #notes .hint { font-size:inherit; }
+  #notes .note { margin-top:.35rem; }
+  .note-return { display:inline-block; margin-top:.4rem; }
 </style>
 </head>
 <body>
@@ -192,24 +204,16 @@
 <div class="top">
   <div class="kicker">KATY, TEXAS · AUGUST 2026 · PREPARED FOR PHASES 2 &amp; 4 OF THE GRAND LAKES COMMUNITY</div>
   <h1>Your water bill is about to change.</h1>
-  <p>At the August 3, 2026 board meeting, the district presented two ways it could increase monthly water bills. A neighbor checked the math using the district's own numbers and built a fairer alternative that raises the <strong>same amount of money</strong>.</p>
+  <p>At the August 3, 2026 board meeting, the district presented two ways it could increase monthly water bills. A neighbor checked the math using the district's own numbers and built a fairer alternative that raises <strong>about the same money</strong>.</p>
 </div>
 
 <div class="wrap">
 
 <section>
   <video controls preload="metadata" src="assets/video.mp4"></video>
-  <div class="note" id="video-correction">
-    <p><strong>Correction — October 7, 2026.</strong> The video above is the August 6 cut. Three figures have since been refined on this page:</p>
-    <ul>
-      <li>The $13.31 monthly property-tax example is one verified home below the community average, rather than the median home.</li>
-      <li>The trash share of the $55 “sewer” charge is about two-thirds, rather than one-third. The measured costs are $47.38 for sewer and $36.51 for trash.</li>
-      <li>The roughly $216 Scenario 1 total includes MUD 2 and WCID property taxes. For a home using 7,000 gallons, the water bill alone is about $122.</li>
-    </ul>
-    <p class="hint" id="video-correction-update"><strong>Video corrected on October 8, 2026 (CDT):</strong> an updated explainer replaces the August 6 cut. The original correction note above is retained as history.</p>
-  </div>
+  <p class="fine note-reference"><sup><a id="note-ref-1" href="#note-1" aria-label="Note 1: Video correction history">*¹ note</a></sup></p>
   <p class="hint">4:15 explainer. Sound on — or just read the captions.</p>
-  <p class="fine">This interim cut uses a synthetic Gemini TTS “Orus” voice. Tomas plans to re-record it in his own voice; the narration is identified here so the temporary voice is clear.</p>
+  <p class="fine note-reference"><sup><a id="note-ref-2" href="#note-2" aria-label="Note 2: AI narration">*² note</a></sup></p>
 </section>
 
 <!-- NEIGHBORHOOD CONTEXT · BEFORE ANY RATE PROPOSAL -->
@@ -387,7 +391,7 @@
     </div>
     <div class="say" id="say"></div>
     <details><summary>See these numbers as a table</summary><div id="btable"></div>
-      <p class="fine">District S1 and S2 are computed from the August 3 rate tables. The unprinted S1 price for 40,000–50,000 gallons is assumed to be $4.50 per 1,000 gallons. Neighbor S3 is computed from the corrected counter-proposal brief. Its 4.5¢ property-tax component is separate from the water bill and would require voter involvement under the rule that applies to MUD 2.</p>
+      <p class="fine note-reference"><sup><a id="note-ref-6" href="#note-6" aria-label="Note 6: Calculator assumptions">*⁶ note</a></sup></p>
     </details>
   </div>
   </div>
@@ -489,7 +493,7 @@
       <div class="name">THE TAX BASE IS NOT ONLY HOMES</div>
       <p>The district’s $466,651,883 tax base includes commercial property. The commercial share is unconfirmed pending the certified tax roll. A property-tax option shares the cost across taxable properties according to value; a flat household fee does not.</p>
       <p>For S3's $205,793/year target, the estimated home share is roughly $106–133k and the commercial share roughly $73–99k, depending on the taxable-value mix.</p>
-      <p class="fine" id="s3-tax-base-note">S3 keeps $466,651,883 as its tax-base input. The FY2027 proposed budget also prints $459,413,419 in another budget version; S3’s property-tax component would be $3,192 per year lower on that figure. The certified tax roll has been requested.</p>
+      <p class="fine note-reference"><sup><a id="note-ref-3" href="#note-3" aria-label="Note 3: Property-tax input">*³ note</a></sup></p>
     </div>
   </div>
   <div class="note">
@@ -597,7 +601,7 @@
     <a class="btn alt" href="assets/MUD2-Capital-Plan-analysis.xlsx" download>Download the open major-project workbook (Excel)</a>
     <a class="btn alt" href="assets/2026-08-10-PIA-Response-FULL-PUBLIC-COPY-redacted.pdf" download>Download the District's complete PIA response (PDF, 32 pages)</a>
   </div>
-  <p class="fine">The third file is the District's complete response to a resident's Public Information Act request, posted for resident verification. The public copy is unaltered except for labeled redactions covering the requester's street address, non-public work email, and water-account identifier.</p>
+  <p class="fine note-reference"><sup><a id="note-ref-4" href="#note-4" aria-label="Note 4: District response download">*⁴ note</a></sup></p>
 </section>
 
 <!-- 10 · BOTH CHANNELS -->
@@ -627,7 +631,7 @@
 
   <p><strong>The board's likely plan (Scenario 1)</strong> puts that home at about <strong>$216 a month</strong>. It hides the trash bill inside a line called "sewer," and the families who conserve the most get the biggest percentage increases. The plan also comes with a second round of increases already suggested for 2028.</p>
 
-  <p><strong>Scenario 3 (S3) is not one of the district's options — it's mine.</strong> The district presented two scenarios on August 3; this is a neighbor's alternative, built from the district's own numbers, and the board would have to choose to take it up. I call it Scenario 3 because it belongs in the same comparison: it raises the district the <strong>same money</strong> and puts the same home at about <strong>$199</strong>. The difference is just honesty in the shape: you pay for the water you actually use, sewer costs what sewer costs, and trash gets its own line on the bill. If your sprinkler system is wasting money, your bill shows you — and you can fix it. Under a flat fee, there's nothing to fix. Mine goes up the most on my street under Scenario 3, because my sprinklers were the biggest wasters. I proposed it anyway.</p>
+  <p><strong>Scenario 3 (S3) is not one of the district's options — it's mine.</strong> The district presented two scenarios on August 3; this is a neighbor's alternative, built from the district's own numbers, and the board would have to choose to take it up. I call it Scenario 3 because it belongs in the same comparison: it raises the district <strong>about the same money</strong> and puts the same home at about <strong>$199</strong>. The difference is just honesty in the shape: you pay for the water you actually use, sewer costs what sewer costs, and trash gets its own line on the bill. If your sprinkler system is wasting money, your bill shows you — and you can fix it. Under a flat fee, there's nothing to fix. Mine goes up the most on my street under Scenario 3, because my sprinklers were the biggest wasters. I proposed it anyway.</p>
 
   <p><strong>Then there's the repair plan</strong> — and this one isn't anyone's fault. Our plant was built around 2001, equipment lasts 15 to 25 years, and the district's own list totals $15.6 million over ten years. The proposed $100 monthly fee covers about <strong>half</strong> of that, and the district's study already recommends raising it yearly. So the $100 isn't a price. It's a starting bid.</p>
 
@@ -701,9 +705,54 @@
         <a class="btn" href="https://grandlakesvoice.com/documents" target="_blank" rel="noopener noreferrer">Open HOA documents ↗</a>
       </div>
     </div>
-    <p class="fine">These links leave this independent resident analysis and may change as the districts or association update their sites. Confirm which district and phase apply to your property before relying on a document.</p>
+    <p class="fine note-reference"><sup><a id="note-ref-5" href="#note-5" aria-label="Note 5: External source links">*⁵ note</a></sup></p>
   </div>
   <p class="hint">The handouts are the EVO 10-Year Financial Operating Strategy exactly as distributed at the open board meeting — so you can verify every number yourself. The workbook contains the calculations for the 60-bill audit, today's rates, both district options, and the editable S3 alternative, using the district's own distribution of 679 customer meters.</p>
+</section>
+
+<!-- EDITORIAL NOTES · VISIBLE HISTORY AND SOURCE CAVEATS -->
+<section id="notes" aria-labelledby="notes-title">
+  <h2 id="notes-title">Notes</h2>
+  <ol class="notes-list">
+    <li id="note-1" tabindex="-1">
+      <h3>Video correction history</h3>
+      <div class="note" id="video-correction">
+    <p><strong>Correction — October 7, 2026.</strong> The video above is the August 6 cut. Three figures have since been refined on this page:</p>
+    <ul>
+      <li>The $13.31 monthly property-tax example is one verified home below the community average, rather than the median home.</li>
+      <li>The trash share of the $55 “sewer” charge is about two-thirds, rather than one-third. The measured costs are $47.38 for sewer and $36.51 for trash.</li>
+      <li>The roughly $216 Scenario 1 total includes MUD 2 and WCID property taxes. For a home using 7,000 gallons, the water bill alone is about $122.</li>
+    </ul>
+    <p class="hint" id="video-correction-update"><strong>Video corrected on October 8, 2026 (CDT):</strong> an updated explainer replaces the August 6 cut. The original correction note above is retained as history.</p>
+  </div>
+      <a class="note-return" href="#note-ref-1" aria-label="Back to note 1 marker">↩ Back to video correction marker</a>
+    </li>
+    <li id="note-2" tabindex="-1">
+      <h3>AI narration</h3>
+      <p class="fine">The narration uses a synthetic Gemini TTS “Orus” voice.</p>
+      <a class="note-return" href="#note-ref-2" aria-label="Back to note 2 marker">↩ Back to narration disclosure marker</a>
+    </li>
+    <li id="note-3" tabindex="-1">
+      <h3>Property-tax input</h3>
+      <p class="fine" id="s3-tax-base-note">S3 keeps $466,651,883 as its tax-base input. The FY2027 proposed budget also prints $459,413,419 in another budget version; S3’s property-tax component would be $3,192 per year lower on that figure. The certified tax roll has been requested.</p>
+      <a class="note-return" href="#note-ref-3" aria-label="Back to note 3 marker">↩ Back to tax-base marker</a>
+    </li>
+    <li id="note-4" tabindex="-1">
+      <h3>District response download</h3>
+      <p class="fine">The third file is the District's complete response to a resident's Public Information Act request, posted for resident verification. The public copy is unaltered except for labeled redactions covering the requester's street address, non-public work email, and water-account identifier.</p>
+      <a class="note-return" href="#note-ref-4" aria-label="Back to note 4 marker">↩ Back to district-response downloads</a>
+    </li>
+    <li id="note-5" tabindex="-1">
+      <h3>External source links</h3>
+      <p class="fine">These links leave this independent resident analysis and may change as the districts or association update their sites. Confirm which district and phase apply to your property before relying on a document.</p>
+      <a class="note-return" href="#note-ref-5" aria-label="Back to note 5 marker">↩ Back to external source links</a>
+    </li>
+    <li id="note-6" tabindex="-1">
+      <h3>Calculator assumptions</h3>
+      <p class="fine">District S1 and S2 are computed from the August 3 rate tables. The unprinted S1 price for 40,000–50,000 gallons is assumed to be $4.50 per 1,000 gallons. Neighbor S3 is computed from the corrected counter-proposal brief. Its 4.5¢ property-tax component is separate from the water bill and would require voter involvement under the rule that applies to MUD 2.</p>
+      <a class="note-return" href="#note-ref-6" aria-label="Back to note 6 marker">↩ Back to calculator assumptions</a>
+    </li>
+  </ol>
 </section>
 
 </div>
@@ -904,6 +953,29 @@ addEventListener('beforeprint',()=>{
 });
 
 drawBills(10); drawLevers();
+</script>
+<script id="notes-navigation">
+// Notes can be reached from the existing calculator popup without duplicating it.
+document.getElementById('note-ref-6').addEventListener('click', event => {
+  const dialog=document.getElementById('calc-dialog');
+  if(!dialog.open) return;
+  event.preventDefault();
+  dialog.addEventListener('close', () => {
+    location.hash='note-6';
+    const note=document.getElementById('note-6');
+    note.focus({preventScroll:true});
+    note.scrollIntoView();
+  }, {once:true});
+  dialog.close();
+});
+document.querySelectorAll('#notes .note-return').forEach(link => {
+  link.addEventListener('click', () => {
+    const marker=document.getElementById(link.hash.slice(1));
+    for(let parent=marker?.parentElement;parent;parent=parent.parentElement){
+      if(parent.tagName==='DETAILS') parent.open=true;
+    }
+  });
+});
 </script>
 </body>
 </html>
